@@ -7,12 +7,17 @@ which will take them to the events timeline.
 
 ![bugleauthlow](https://user-images.githubusercontent.com/6371329/47967627-6ce69100-e02d-11e8-8d8e-5fc9e773abc8.gif)
 
-# 2. Adding a new event
+# 2. Firebase Authentication accounts
+Users accounts will be added to the firebase authentication console.  Admins can add, delete, and disable accounts from the firebase authentication console.
+
+<img width="1017" alt="bugleapp authentication firebase console" src="https://user-images.githubusercontent.com/6371329/47968607-9e198e00-e03a-11e8-9c80-cf4783ff3535.png">
+
+# 3. Adding a new event
 Posting events is simple just touch add event and select an image to post a current event.
 
 ![bugleeventlow](https://user-images.githubusercontent.com/6371329/47968454-48dc7d00-e038-11e8-80e1-46b3636cf9e6.gif)
 
-# 3. Firebase database results in posting a new event
+# 4. Firebase database results in posting a new event
 All posts are childs of the bugleapp db. 
 Only the 5 most recent post are displayed.
 
