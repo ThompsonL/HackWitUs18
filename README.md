@@ -31,7 +31,9 @@ Users can add contacts which will increase the number of user's they are followi
 # 6. Event Details
 Users can open the events and see the details of the event
 
-![bugleprofileaddcontactlow](https://user-images.githubusercontent.com/6371329/47968853-6cee8d00-e03d-11e8-8367-2db654d977d5.gif)
+![buglepostdetailslow](https://user-images.githubusercontent.com/6371329/47968882-e25a5d80-e03d-11e8-8c87-f530d8a69398.gif)
+
+
 
 
 # Things to do (short-range):
