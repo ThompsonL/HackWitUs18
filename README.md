@@ -29,7 +29,7 @@ Users can add contacts which will increase the number of user's they are followi
 ![bugleprofileaddcontactlow](https://user-images.githubusercontent.com/6371329/47968686-5d6e4480-e03b-11e8-99cd-85f783e71463.gif)
 
 
-# Things to do (short range):
+# Things to do (short-range):
 
 1. [ ] Post counter increases when user adds post or events.
 
@@ -39,7 +39,7 @@ Users can add contacts which will increase the number of user's they are followi
 
 
 
-# Things to do  (long range)
+# Things to do  (long-range)
 1. [ ] App splash screen
 
 2. [ ] Instant Messenger
@@ -49,3 +49,5 @@ Users can add contacts which will increase the number of user's they are followi
 # Dev Comments
 
 If there is anything that needs to be added to the todo list, please add or check off as they are completed.
+
+# BugleApp PRIVATE repository
