@@ -1,5 +1,5 @@
 # BugleApp (Private Repository)
-Non Profit Organization ( NPO ) social media App for volunteers and NPO's.  Allows NPO's and users to create their own profile, events, post events to a timeline, and instant message members. 
+Non Profit Organization ( NPO ) social media App for volunteers and NPO's.  Allows NPO's and volunteers to create their own profile, events, post events to a timeline, and instant message members. 
 
 ## 1. Login using firebase
 Users can login to their accounts using the login screen 
