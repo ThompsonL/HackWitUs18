@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Button, Text, StyleSheet } from 'react-native';
 import md5 from 'blueimp-md5';
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import { Avatar } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
 
 const styles = StyleSheet.create({
     statsContainer: {
@@ -19,17 +21,22 @@ const styles = StyleSheet.create({
 });
 
 
-export default class ProfileScreen extends Component{
-    static navigationOptions = {
-        title: 'Profile'
-    };
+  @firebaseConnect()
+class ProfileScreen extends Component{
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Profile',
+        headerRight: <Button title="Add Contacts" onPress={() => navigation.navigate('AddContacts')} />
+    });
  gravatarURL() {
-     let email = 'markus@mmuehlberger.com';
+     let email = this.props.auth.email;
      return 'https://gravatar.com/avatar/' + md5(email) + '?s=400';
  }
-
+    
 
  render(){
+     let name = this.props.profile ? this.props.profile.username : 'Anonymous';
+     let follow = this.props.profile && this.props.profile.following ? Object.keys(this.props.profile.following).length : 0;
+     let posts = this.props.posts ? Object.keys(this.props.posts).length : 0;
      return(
         <Grid>
             <Col style={{alignItems: 'center'}}>
@@ -39,10 +46,10 @@ export default class ProfileScreen extends Component{
                 source={{uri: this.gravatarURL()}}
                 containerStyle={{marginTop:35, width: 75, height: 75, marginVertical: 10}}
                 />
-                <Text style={{fontSize: 18, marginBottom: 15}}>Markus Muehlberger</Text>
+                <Text style={{fontSize: 18, marginBottom: 15}}>{name}</Text>
             <Row>
-                <Col style={styles.statsContainer}><Text style={styles.stats}> 123 Following</Text></Col>
-                <Col style={styles.statsContainer}><Text style={styles.stats}> 456 Posts</Text></Col>
+                <Col style={styles.statsContainer}><Text style={styles.stats}> {follow} Following</Text></Col>
+                <Col style={styles.statsContainer}><Text style={styles.stats}> {posts} Posts</Text></Col>
             </Row>
             </Col>
 
@@ -50,3 +57,13 @@ export default class ProfileScreen extends Component{
      );
     }
 }
+
+const MapStateToProps = (state) => {
+    //console.log(state);
+    return {
+      auth: state.firebase.auth,  // auth passed as props.auth
+      profile: state.firebase.profile // profile passed as props.profile
+    }
+  }
+
+export default connect(MapStateToProps)(ProfileScreen);

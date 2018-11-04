@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true, // allows decorators for vscode and doesn't show up as error in editor
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true //add for imports to work in expo
+    }
+}

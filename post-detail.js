@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 export default class PostDetailScreen extends Component {
     static navigationOptions = {
-        title: 'Recent Posts'
+        title: 'Posts'
     };
 
     render() {

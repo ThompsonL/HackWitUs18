@@ -1,0 +1,30 @@
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": "true",
+    ".write": "true",
+      "profiles": {
+        "$user_id": {
+        ".write": "$user_id === auth.uid"   
+      }
+    },
+      
+      "posts": {
+        ".indexOn": "created_at",
+        "$post": {
+          ".write": "auth != null && !data.exists()  || (!newData.exists() && data.child('user_id').val() === auth.uid)",
+          ".validate": "newData.hasChildren(['user_id', 'created_at', 'image'])",
+            "create_at": {
+            ".validate": "newData.val() <= now && newData.val() >= now - 60000"
+          },
+            "user_id": {
+              ".validate": "newData.val() === auth.uid"
+            }
+        	}
+      	},
+          ".indexOn": "email"
+    }
+  }
+
+
+  /*this is the setup of the firebase database*/ 
