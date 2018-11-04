@@ -28,12 +28,17 @@ Users can add contacts which will increase the number of user's they are followi
 
 ![bugleprofileaddcontactlow](https://user-images.githubusercontent.com/6371329/47968686-5d6e4480-e03b-11e8-99cd-85f783e71463.gif)
 
+# 6. Event Details
+Users can open the events and see the details of the event
+
+![bugleprofileaddcontactlow](https://user-images.githubusercontent.com/6371329/47968853-6cee8d00-e03d-11e8-8367-2db654d977d5.gif)
+
 
 # Things to do (short-range):
 
 1. [ ] Post counter increases when user adds post or events.
 
-2. [ ] Event-Details screen needs to display location and information of the event.
+2. [ ] Event-Details screen needs to display location, information of the event, and user subscribers.
 
 3. [ ] Upload images to file storage to be access from all users through the firebase db.
 
