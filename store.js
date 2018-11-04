@@ -18,7 +18,7 @@ const rrConfig = {
     ReactNative: { AsyncStorage },
     attachAuthIsReady: true, // attaches auth is ready promise to store
     firebaseStateName: 'firebase', // should match the reducer name ('firebase' is default)
-    enableRedirectHandling: false // since react-native does not support http
+    enableRedirectHandling: false // since react-native does not support http or https and isn't a browser
 
 }
 

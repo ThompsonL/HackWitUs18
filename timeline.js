@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, ImageBackground, Text, View} from 'react-native';
+import { Button, ScrollView, ImageBackground, Text, View, TouchableHighlight} from 'react-native';
 import { ImagePicker, Permissions, Location } from 'expo';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -87,14 +87,20 @@ export default class TimelineScreen extends Component {
                 return (
                     <View key={i} style={{padding: 10, marginBottom: 25, backgroundColor: '#FFF'}}>
                         {/*<Text style={{fontWeight: 'bold', marginLeft: 40}}>{post.user_id.username}</Text>*/}
-                        <ImageBackground source={{uri: post.image, isStatic: true}} style={{height: 250, borderRadius: 25}} imageStyle={{ borderRadius: 25 }}>
-                        <Avatar
-                        medium
-                        rounded
-                        source={{uri: this.gravatarURL(post)}}
-                        containerStyle={{width: 25, height: 25, position: "absolute", marginTop:5, marginLeft: 5}}
-                        />                        
-                        </ImageBackground>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Post', {post_id: post.user_id.username})}>
+                            <ImageBackground 
+                                source={{uri: post.image, isStatic: true}}
+                                style={{height: 250, borderRadius: 25}} 
+                                imageStyle={{ borderRadius: 25 }}
+                                >
+                                <Avatar
+                                medium
+                                rounded
+                                source={{uri: this.gravatarURL(post)}}
+                                containerStyle={{width: 25, height: 25, position: "absolute", marginTop:5, marginLeft: 5}}
+                                />                        
+                            </ImageBackground>
+                        </TouchableHighlight>
                         <Text style={{paddingTop: 5, textAlign: 'center', fontStyle: 'italic'}}>
                          {post.created_at.toString()+'\n'}
                          {post.location ? post.location : 'Somewhere in the world'}
