@@ -14,6 +14,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "googleMapsApiKey": "AIzaSyA8HSmS16ym2PCkbiWfX7vo28bVrNI3RaE",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -21,7 +22,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "CFBundleDisplayName": "BugleApp",
+      "NSCameraUsageDescription": "Allow BugleApp to use camera during experience",
+      "NSPhotoLibraryUsageDescription": "Allow BugleApp to use photo library during experience",
+      "NSLocationWhenInUseUsageDescription": "Allow BugleApp to use location service during experience",
+      "NSLocationAlwaysUsageDescription": "Allow BugleApp to always use location services",
+      "GMSServices provideApiKey": "AIzaSyA8HSmS16ym2PCkbiWfX7vo28bVrNI3RaE"
     }
   }
 }

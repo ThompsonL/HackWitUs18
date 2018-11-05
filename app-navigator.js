@@ -13,12 +13,13 @@ import LoginScreen from './login';
 import TimelineScreen from './timeline';
 import PostDetailScreen from './post-detail';
 import ProfileScreen from './profile';
-
+import EventDetailScreen from './event-detail';
 
 const TimelineNavigator = createStackNavigator({
   Timeline: { screen: TimelineScreen },
-  Post: { path: 'posts/:post_id', screen: PostDetailScreen }
-});
+  Post: { path: 'posts/:post_id', screen: PostDetailScreen },
+  EventDetails: { screen: EventDetailScreen}
+}, {mode: "modal"});
 TimelineNavigator.navigationOptions = {
   title: 'Timeline',
   tabBarIcon: ({ tintColor }) => <Icon color={tintColor} name="image" />

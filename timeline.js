@@ -4,7 +4,6 @@ import { ImagePicker, Permissions, Location } from 'expo';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { firebaseConnect, populate } from 'react-redux-firebase';
-import moment from 'moment';
 import md5 from 'blueimp-md5';
 
 const populates = [{
@@ -19,9 +18,7 @@ const populates = [{
         auth: firebase.auth,  // auth passed as props.auth
         profile: firebase.profile, // profile passed as props.profile
         posts: populate(firebase, 'posts', populates), //all posts from fb db
-        hasCameraPermission: null, // permission for camera usage
-        hasLocationPermission: null,
-        image: null,  //image uri path
+        
     })
   )
 export default class TimelineScreen extends Component {
@@ -29,65 +26,61 @@ export default class TimelineScreen extends Component {
 
     static navigationOptions = ({ navigation }) => ({
         title: 'Recent Events',
-        headerRight: <Button title="Add Event" onPress={() => navigation.state.params.showImagePicker()}/>
+        headerRight: <Button title="Add Event" onPress={() => navigation.navigate('EventDetails')}/>
     });
 
-    async componentWillMount() {
-        const { camstatus } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
-        this.setState({ hasCameraPermission: camstatus === 'granted' })
-        const { geostatus } = await Permissions.askAsync(Permissions.LOCATION)
-        this.setState({ hasLocationPermission: geostatus === 'granted' })
-      }
-
-    componentDidMount() {
-        this.props.navigation.setParams({ 
-            showImagePicker: this._pickImage.bind(this),
-            getCurrentPosition: this._getLocationAsync.bind(this)
-        });
-    }
-
-    _pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          allowsEditing: true,
-          aspect: [4, 3],
-        });
-
-        console.log('_pickImage: ' + result);
-        
-        if (!result.cancelled) {
-            this.setState({ image: result.uri });
-            this.props.navigation.state.params.getCurrentPosition();
-        }
-    }
-
-    _getLocationAsync = async () => {
-        let location = await Location.getCurrentPositionAsync({});
-        let postal = await Location.reverseGeocodeAsync({latitude: location.coords.latitude, longitude: location.coords.longitude})
-        console.log("postal: " + JSON.stringify(postal))
-        let dateNow = moment().format('LTS') + ' - ' + moment().format('ll'); // Sat, Nov 3, 2018 11:03 PM
-        this.props.firebase.push('/posts', {
-            user_id: this.props.auth.uid,
-            created_at: dateNow,
-            image: this.state.image,
-            location: `${postal[0].city}`+', '+`${postal[0].region}`,
-        });
-    };
-
-    gravatarURL(post) {
+    
+    _gravatarURL(post) {
         let email = post.user_id.email;
         return 'https://gravatar.com/avatar/' + md5(email) + '?s=400';
     }
 
+    _parseTime(time) {  //parse time for event
+        let semi = ':';
+        let space = ' ';
+        let nTime = time.split(':')
+        let hour = nTime[0];
+        let min = nTime [1];
+        if ( hour > 12){
+            let tod = 'PM';
+            hour = hour - 12;
+            let parsedTime = hour+semi+min+space+tod;
+            return parsedTime;
+
+        }else{
+            let tod = 'AM';
+            let parsedTime = hour+semi+min+space+tod;
+            return parsedTime;
+
+        }        
+    }
+
+    _parsedDate(date) {  //parse date for events
+        let comma = ', ';
+        let space = ' ';
+        let ndate = date.toString().split(' ');
+        let dayName = ndate[0];
+        let month = ndate[1];
+        let dayNum = ndate[2];
+        let year = ndate[3];
+        let time = this._parseTime(ndate[4]);
+
+        let timePosted = dayName+comma+
+                         month+space+dayNum+comma+
+                         year+space+time
+        return timePosted;
+    }
+
     render() {
         let posts = null;
-        console.log(this.props.posts);
+        //console.log(this.props.posts);
         if (this.props.posts){
             posts = Object.values(this.props.posts).sort((a,b) => b.created_at - a.created_at).map((post, i) => {
-               
+               let date = new Date(post.created_at);
                 return (
                     <View key={i} style={{padding: 10, marginBottom: 25, backgroundColor: '#FFF'}}>
-                        {/*<Text style={{fontWeight: 'bold', marginLeft: 40}}>{post.user_id.username}</Text>*/}
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Post', {post_id: post.user_id.username})}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Post', {post_id: post.user_id.username})}>  
+                        {/* post_id parameters to send to post-details */}
                             <ImageBackground 
                                 source={{uri: post.image, isStatic: true}}
                                 style={{height: 250, borderRadius: 25}} 
@@ -96,13 +89,14 @@ export default class TimelineScreen extends Component {
                                 <Avatar
                                 medium
                                 rounded
-                                source={{uri: this.gravatarURL(post)}}
+                                source={{uri: this._gravatarURL(post)}}
                                 containerStyle={{width: 25, height: 25, position: "absolute", marginTop:5, marginLeft: 5}}
                                 />                        
                             </ImageBackground>
                         </TouchableHighlight>
                         <Text style={{paddingTop: 5, textAlign: 'center', fontStyle: 'italic'}}>
-                         {post.created_at.toString()+'\n'}
+                         {'~' + post.user_id.username + '~\n'}
+                         {this._parsedDate(date) +'\n'}
                          {post.location ? post.location : 'Somewhere in the world'}
                         </Text>
                     </View>

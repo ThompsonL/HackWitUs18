@@ -8,7 +8,7 @@ export default class PostDetailScreen extends Component {
 
     render() {
         return(
-            <View><Text>PostDetail for {this.props.navigation.state.params.post_id}</Text></View>
+            <View><Text>Post Details' for {this.props.navigation.state.params.post_id}</Text></View>
         );
     }
 }
