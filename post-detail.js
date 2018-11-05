@@ -3,12 +3,12 @@ import { Text, View } from 'react-native';
 
 export default class PostDetailScreen extends Component {
     static navigationOptions = {
-        title: 'Posts'
+        title: 'Details'
     };
 
     render() {
         return(
-            <View><Text>Post Details' for {this.props.navigation.state.params.post_id}</Text></View>
+            <View><Text>Details' for {this.props.navigation.state.params.post_id}</Text></View>
         );
     }
 }
