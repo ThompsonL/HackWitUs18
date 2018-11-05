@@ -16,7 +16,7 @@ Users accounts will be added to the firebase authentication console.  Admins can
 Posting events is simple just touch add event and select an image to post a current event.
 ### 04-Nov-2018
 ![bugleeventlow](https://user-images.githubusercontent.com/6371329/47968454-48dc7d00-e038-11e8-80e1-46b3636cf9e6.gif)
-### 05-Nov-2019
+### 05-Nov-2018
 ![bugleaddeventlow](https://user-images.githubusercontent.com/6371329/48029578-8286b400-e11c-11e8-9950-c63d21ddc1ec.gif)
 
 ## 4. Firebase database results in posting a new event
