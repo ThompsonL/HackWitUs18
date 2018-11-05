@@ -47,6 +47,10 @@ Users can open the events and see the details of the event
 
 4. [ ] Delete post and decrease post count.
 
+5. [ ] Marker on event location
+
+6. [ ] Post Event Details need to populate on screen with supplied information
+
 ***
 
 ## Things to do  (long-range)
