@@ -17,6 +17,8 @@ Posting events is simple just touch add event and select an image to post a curr
 
 ![bugleeventlow](https://user-images.githubusercontent.com/6371329/47968454-48dc7d00-e038-11e8-80e1-46b3636cf9e6.gif)
 
+![bugleaddeventlow](https://user-images.githubusercontent.com/6371329/48029578-8286b400-e11c-11e8-9950-c63d21ddc1ec.gif)
+
 ## 4. Firebase database results in posting a new event
 All posts are childs of the bugleapp db. 
 Only the 5 most recent post are displayed.
