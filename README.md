@@ -56,6 +56,8 @@ Users can open the events and see the details of the event
 
 3. [ ] Instant Notifications
 
+4. [ ] Google Auth Signin
+
 
 ***
 
