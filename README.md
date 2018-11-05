@@ -45,6 +45,8 @@ Users can open the events and see the details of the event
 
 3. [ ] Upload images to file storage to be access from all users through the firebase db.
 
+4. [ ] Delete post and decrease post count.
+
 ***
 
 ## Things to do  (long-range)
