@@ -39,9 +39,9 @@ Users can open the events and see the details of the event
 
 ## Things to do (short-range):
 
-1. [ ] Post counter increases when user adds post or events.
+1. [X] Post counter increases when user adds post or events. 05-Nov-18
 
-2. [X] Event-Details screen needs to display location, information of the event, and user subscribers.
+2. [X] Event-Details screen needs to display location, information of the event, and user subscribers. 04-Nov-18
 
 3. [ ] Upload images to file storage to be access from all users through the firebase db.
 
