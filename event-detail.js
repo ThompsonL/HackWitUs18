@@ -3,6 +3,7 @@ import { View, Alert, Dimensions, ScrollView } from 'react-native';
 import { FormLabel, FormInput, Button, FormValidationMessage } from 'react-native-elements';
 import { MapView, ImagePicker, Permissions, Location } from 'expo';
 import { connect } from 'react-redux';
+import { StackActions, NavigationActions } from 'react-navigation'
 import { firebaseConnect, populate } from 'react-redux-firebase';
 
 const populates = [{
@@ -123,7 +124,12 @@ export default class EventDetailScreen extends Component {
             created_at: (new Date()).getTime(),  //date created
             image: this.state.image,  // image location
             location: `${postal[0].city}`+', '+`${postal[0].region}`,  //object city, state
-        });
+        })
+        .then(Alert.alert("Congratulations!,\n"+ this.props.profile.username +"\n"+"You just created the event " + this.state.name +"!"))
+        .then(this.props.navigation.dispatch(StackActions.reset({
+                index:0,
+                actions: [NavigationActions.navigate({ routeName: 'Timeline'})]
+        })));
     };
 
 
@@ -220,7 +226,8 @@ _performPhotoOrPost() {
             return;
         }
          
-        this.props.navigation.state.params.getCurrentPosition();    
+        this.props.navigation.state.params.getCurrentPosition();
+        
     } else {
         //do photo
         this.props.navigation.state.params.showImagePicker();
