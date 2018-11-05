@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, ScrollView, ImageBackground, Text, View, TouchableHighlight} from 'react-native';
-import { ImagePicker, Permissions, Location } from 'expo';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { firebaseConnect, populate } from 'react-redux-firebase';
