@@ -43,11 +43,11 @@ Users can open the events and see the details of the event
 
 2. [X] Event-Details screen needs to display location, information of the event, and user subscribers. 04-Nov-18
 
-3. [ ] Upload images to file storage to be access from all users through the firebase db.
+3. [X] Upload images to file storage to be access from all users through the firebase db. 05-Nov-18
 
 4. [ ] Delete post and decrease post count.
 
-5. [ ] Marker on event location
+5. [X] Marker on event location.  05-nov-18 
 
 6. [ ] Post Event Details need to populate on screen with supplied information
 
