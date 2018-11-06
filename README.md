@@ -14,8 +14,8 @@ Users accounts will be added to the firebase authentication console.  Admins can
 
 ## 3. Adding a new event
 Posting events is simple just touch add event and select an image to post a current event.
-
-![bugleeventlow](https://user-images.githubusercontent.com/6371329/47968454-48dc7d00-e038-11e8-80e1-46b3636cf9e6.gif)
+### 04-Nov-2018 ====================>05-Nov-2018
+![bugleeventlow](https://user-images.githubusercontent.com/6371329/47968454-48dc7d00-e038-11e8-80e1-46b3636cf9e6.gif)![bugleaddeventlow](https://user-images.githubusercontent.com/6371329/48029578-8286b400-e11c-11e8-9950-c63d21ddc1ec.gif)
 
 ## 4. Firebase database results in posting a new event
 All posts are childs of the bugleapp db. 
@@ -39,13 +39,17 @@ Users can open the events and see the details of the event
 
 ## Things to do (short-range):
 
-1. [ ] Post counter increases when user adds post or events.
+1. [X] Post counter increases when user adds post or events. 05-Nov-18
 
-2. [X] Event-Details screen needs to display location, information of the event, and user subscribers.
+2. [X] Event-Details screen needs to display location, information of the event, and user subscribers. 04-Nov-18
 
 3. [ ] Upload images to file storage to be access from all users through the firebase db.
 
 4. [ ] Delete post and decrease post count.
+
+5. [ ] Marker on event location
+
+6. [ ] Post Event Details need to populate on screen with supplied information
 
 ***
 
