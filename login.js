@@ -115,6 +115,7 @@ _performSignup() {
            this.state.database.ref('profiles/' + firebase.auth().currentUser.uid).set({
             username: name,
             following: 0,
+            posts: 0,
             email: email,
            })
            this._saveCredentials(credentials)    

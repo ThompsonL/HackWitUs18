@@ -36,7 +36,7 @@ class ProfileScreen extends Component{
  render(){
      let name = this.props.profile ? this.props.profile.username : 'Anonymous';
      let follow = this.props.profile && this.props.profile.following ? Object.keys(this.props.profile.following).length : 0;
-     let posts = this.props.posts ? Object.keys(this.props.posts).length : 0;
+     let posts = this.props.profile.posts ? Object.keys(this.props.profile.posts).length : 0;
      return(
         <Grid>
             <Col style={{alignItems: 'center'}}>

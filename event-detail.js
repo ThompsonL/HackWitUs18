@@ -5,6 +5,7 @@ import { MapView, ImagePicker, Permissions, Location } from 'expo';
 import { connect } from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation'
 import { firebaseConnect, populate } from 'react-redux-firebase';
+import * as firebase from 'firebase';
 
 const populates = [{ //child of root to query from firebase db
     child: 'user_id', root: 'profiles'   
@@ -23,25 +24,28 @@ const populates = [{ //child of root to query from firebase db
    })
  )
 export default class EventDetailScreen extends Component {
-    state = { 
-        photoAdded: false,  //photo not added button shows add photo
-        name: 'name',  //name of the event
-        nameValidation: true, //input validation for name
-        address: null, //address of event
-        addressValidation: true, //input validation for address
-        eventDescription: 'event', //event description 
-        eventValidation: true, //input validation for event description
-        hasCameraPermission: null, // permission for camera usage
-        hasLocationPermission: null, //permissions for location usage
-        image: null,  //image uri path
-        region: {  // initial location of MapView and Marker
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0052720501213840976,  //zoom level
-            longitudeDelta: 0.008883477549531449  //zoom level
-        },
+    
+        state = { 
+            database: firebase.database(),
+            photoAdded: false,  //photo not added button shows add photo
+            name: 'name',  //name of the event
+            nameValidation: true, //input validation for name
+            address: null, //address of event
+            addressValidation: true, //input validation for address
+            eventDescription: 'event', //event description 
+            eventValidation: true, //input validation for event description
+            hasCameraPermission: null, // permission for camera usage
+            hasLocationPermission: null, //permissions for location usage
+            image: null,  //image uri path
+            region: {  // initial location of MapView and Marker
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0052720501213840976,  //zoom level
+                longitudeDelta: 0.008883477549531449  //zoom level
+            },
+        }
+        
 
-    };
     //navigation not used maybe implement later
     static navigationOptions = ({ navigation }) => ({  
         title: 'Add Event Details'
@@ -65,6 +69,7 @@ export default class EventDetailScreen extends Component {
             getCurrentPosition: this._getLocationAsync.bind(this)
         });
     }
+    
     //pick image from library asynchronously
     _pickImage = async () => {      // picks image from device
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -112,7 +117,7 @@ export default class EventDetailScreen extends Component {
     _getLocationAsync = async () => {        
         //retrieves user's location
         let location = await Location.getCurrentPositionAsync({});  
-        //gets postal location of lat/long
+        //gets postal location of lat/long and retrieves user's postal address
         let postal = await Location.reverseGeocodeAsync({
             latitude: location.coords.latitude, longitude: location.coords.longitude}) 
         //console.log("postal: " + JSON.stringify(postal)) 
@@ -120,13 +125,14 @@ export default class EventDetailScreen extends Component {
         this.props.firebase.push('/posts', { 
             user_id: this.props.auth.uid,  // user_uid
             event_name: this.state.name, //event name
-            event_description: this.state.description, //event description
+            event_description: this.state.eventDescription, //event description
             address: this.state.address, //event address
             map_region: this.state.region, // event map region
             created_at: (new Date()).getTime(),  //date created
             image: this.state.image,  // image location
             location: `${postal[0].city}`+', '+`${postal[0].region}`,  //object city, state
         })
+        .then(this._updatePostCount(this.state.name))
         .then(Alert.alert("Congratulations!,\n"+ this.props.profile.username +"\n"+"You just created the event " + this.state.name +"!"))
         .then(this.props.navigation.dispatch(StackActions.reset({
                 index:0,
@@ -134,6 +140,19 @@ export default class EventDetailScreen extends Component {
         })));
     };
 
+//updates the count of post on firebase db
+_updatePostCount(eventName) {
+    let updates = {};
+    let posts = this.props.profile.posts || [];
+    posts.push(eventName);
+    updates['/profiles/' + this.props.auth.uid + '/posts'] = posts;
+    this._getRef().update(updates);
+}
+
+//gets reference of firebase db
+_getRef(){
+    return firebase.database().ref();  //in firebase documentation
+  }
 
 render() {
     

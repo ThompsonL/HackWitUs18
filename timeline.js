@@ -78,6 +78,9 @@ export default class TimelineScreen extends Component {
                let date = new Date(post.created_at);
                 return (
                     <View key={i} style={{padding: 10, marginBottom: 25, backgroundColor: '#FFF'}}>
+                        <Text style={{textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
+                        {post.event_name}
+                        </Text>
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('Post', {post_id: post.user_id.username})}>  
                         {/* post_id parameters to send to post-details */}
                             <ImageBackground 
@@ -94,7 +97,7 @@ export default class TimelineScreen extends Component {
                             </ImageBackground>
                         </TouchableHighlight>
                         <Text style={{paddingTop: 5, textAlign: 'center', fontStyle: 'italic'}}>
-                         {'~' + post.user_id.username + '~\n'}
+                         {'By: ~' + post.user_id.username + '~\n'}
                          {this._parsedDate(date) +'\n'}
                          {post.location ? post.location : 'Somewhere in the world'}
                         </Text>
