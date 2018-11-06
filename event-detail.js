@@ -80,12 +80,34 @@ export default class EventDetailScreen extends Component {
         //console.log('_pickImage: ' + result);
         
         if (!result.cancelled) {
-            //set image ur
-            this.setState({ image: result.uri });
+        
+            this._uploadImage(result.uri, this.state.name)
+            .then(() => {
+                console.log('Upload Success');
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .then();
             //set the photoAdded bool to change button text
             this.setState({ photoAdded: true});
         }
     }
+
+    //upload photo selected to firebase file storage
+    _uploadImage = async (uri, imageName) => {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        var ref = firebase.storage().ref().child("images/"+ this.props.auth.uid + '/' + imageName);
+        await ref.put(blob)
+        firebase.storage().ref().child("images/"+ this.props.auth.uid + '/' + imageName).getDownloadURL()
+        .then(url => {
+            //set image uri
+            this.setState({ image: url});
+        });
+    }
+
     //updates the mapview location after user inputs postal address returns
     //lat/long and delta's for zoom
     async _updateMapView(address) {
@@ -132,8 +154,12 @@ export default class EventDetailScreen extends Component {
             image: this.state.image,  // image location
             location: `${postal[0].city}`+', '+`${postal[0].region}`,  //object city, state
         })
+        //updates the post count
         .then(this._updatePostCount(this.state.name))
-        .then(Alert.alert("Congratulations!,\n"+ this.props.profile.username +"\n"+"You just created the event " + this.state.name +"!"))
+        //alerts user of new event creation
+        .then(Alert.alert("Congratulations!,\n"+ this.props.profile.username +"\n"+
+                          "You just created the event " + this.state.name +"!"))
+        //sends user back to timeline screen
         .then(this.props.navigation.dispatch(StackActions.reset({
                 index:0,
                 actions: [NavigationActions.navigate({ routeName: 'Timeline'})]
@@ -256,6 +282,8 @@ _performPhotoOrPost() {
         this.props.navigation.state.params.showImagePicker();
     }
 }
+
+
 
 }
 
