@@ -76,7 +76,7 @@ class Main extends Component {
     
 
     componentDidMount(){
-      console.log("auth_state.isEmpty: " + this.props.auth.isEmpty)
+      //console.log("auth_state.isEmpty: " + this.props.auth.isEmpty)
       if (this.props.auth.isEmpty) {
         this._setupAuthentication();
       } else {

@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, ImageBackground, Text, View, TouchableHighlight} from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { 
+    Button, 
+    ScrollView, 
+    ImageBackground, 
+    Text, 
+    View, 
+    TouchableHighlight, 
+    Dimensions,
+    Alert
+} from 'react-native';
+import { Avatar, Icon, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { firebaseConnect, populate } from 'react-redux-firebase';
 import md5 from 'blueimp-md5';
@@ -11,7 +20,7 @@ const populates = [{
 
 @firebaseConnect([
     { path: '/posts', queryParams: ['orderByChild=created_at', 'limitToLast=5'], populates}
-])
+])  
 @connect(
     ({ firebase}) => ({
         auth: firebase.auth,  // auth passed as props.auth
@@ -77,30 +86,57 @@ export default class TimelineScreen extends Component {
             posts = Object.values(this.props.posts).sort((a,b) => b.created_at - a.created_at).map((post, i) => {
                let date = new Date(post.created_at);
                 return (
-                    <View key={i} style={{padding: 10, marginBottom: 25, backgroundColor: '#FFF'}}>
-                        <Text style={{textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
-                        {post.event_name}
-                        </Text>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Post', {post_id: post.user_id.username})}>  
+                    <View 
+                    key={i} 
+                    style={{padding: 10, marginBottom: 25, backgroundColor: '#FFF'}}
+                    >
+                        
+                        
                         {/* post_id parameters to send to post-details */}
                             <ImageBackground 
                                 source={{uri: post.image, isStatic: true}}
                                 style={{height: 250, borderRadius: 25}} 
                                 imageStyle={{ borderRadius: 25 }}
                                 >
-                                <Avatar
-                                medium
-                                rounded
-                                source={{uri: this._gravatarURL(post)}}
-                                containerStyle={{width: 25, height: 25, position: "absolute", marginTop:5, marginLeft: 5}}
-                                />                        
+                            <Avatar
+                            medium
+                            rounded
+                            source={{uri: this._gravatarURL(post)}}
+                            containerStyle={{width: 25, 
+                                             height: 25, 
+                                             position: "absolute", 
+                                             marginTop:5, 
+                                             marginLeft: Dimensions.get('window').width-50}}
+                            />                        
                             </ImageBackground>
-                        </TouchableHighlight>
-                        <Text style={{paddingTop: 5, textAlign: 'center', fontStyle: 'italic'}}>
-                         {'By: ~' + post.user_id.username + '~\n'}
-                         {this._parsedDate(date) +'\n'}
-                         {post.location ? post.location : 'Somewhere in the world'}
+                
+                        <List>
+                            {
+                                <ListItem
+                                roundAvatar
+                                avatar={{uri: this._gravatarURL(post)}}
+                                title={post.event_name}
+                                subtitle={'By: ' + post.user_id.username}
+                                rightIcon={{name: 'chevron-right', color: 'orange'}}
+                                rightTitle='view more details'
+                                rightTitleStyle={{color: 'orange'}}
+                                onPress={() => this.props.navigation.navigate('Post', {post})}
+                                >
+                                </ListItem>
+                            }
+                        </List>
+                        
+                        {/*
+                        <Text style={{textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
+                        {post.event_name}
                         </Text>
+                        <Text style={{paddingTop: 5, textAlign: 'center', fontStyle: 'italic'}}>
+                        {'By: ~' + post.user_id.username + '~\n'}
+                        {this._parsedDate(date) +'\n'}
+                        {post.location ? post.location : 'Somewhere in the world'}
+                        </Text>
+
+                         */}
                     </View>
                 )
 

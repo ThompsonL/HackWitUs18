@@ -12,6 +12,7 @@ export default class LoginScreen extends Component {
     };
     
 render() {
+    //if state is loading show spinner
     if (this.state.isLoading) {
         return(
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -19,6 +20,7 @@ render() {
             </View>
         );
     }
+    //show name field
     let nameField = null;
     if (this.state.isSignup) {
         nameField = (
@@ -83,10 +85,12 @@ render() {
         </View>
     );
 }
+//change focus to new field
  _focusField(field) {
      this.ref[field].focus();
  }
 
+ //perform login or signup depending on button state
 _performLoginOrSignUp() {
     if (this.state.isSignup) {
         this._performSignup();
@@ -95,29 +99,33 @@ _performLoginOrSignUp() {
     }
 }
 
+//perform signup
 _performSignup() {
     this.setState({ isLoading: true});
 
+    //set states
      let { email, password, name } = this.state;
      const credentials = { email, password };
+     //create user with on firebase using their email and pass
      firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
      .then(() => {
          firebase.auth().currentUser.updateProfile({
              displayName: name,
              photoURL: ""
            }).then(function() {
-             console.log("Profile updated successfully!");
+             //console.log("Profile updated successfully!");
            }, function(error) {
              // An error happened.
              Alert.alert(error.message);
            });
-           
+           //add user to the database with initial parameters
            this.state.database.ref('profiles/' + firebase.auth().currentUser.uid).set({
             username: name,
             following: 0,
             posts: 0,
             email: email,
            })
+           //save credentials function
            this._saveCredentials(credentials)    
      }, (error) => {
          Alert.alert(error.message);
@@ -125,29 +133,33 @@ _performSignup() {
      });
  
 }
-
+    //perform login
  _performLogin() {
+     //no input email or pass return
      if(!this.state.email || !this.state.password) {
         Alert.alert("Enter email & password!");
         return;
      }
 
      this.setState({ isLoading: true});
-
+     //set states
      let { email, password } = this.state;
      const credentials = { email, password };
-
+     //signing in with firebase auth using username and pass
      firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
      .then(() => {
+    //save credentials function
      this._saveCredentials(credentials)    
      }, (error) => {
          Alert.alert(error.message);
          this.setState({ isLoading: false}); 
      });    
  }
-
+ //save credentials
  _saveCredentials({ email, password }) {
+     //save as multiset to be called later for automatic login
     AsyncStorage.multiSet([['email', email],['password', password]]).then(() => {
+        //return user back to Main screen
         this.props.navigation.dispatch(StackActions.reset({
             index:0,
             actions: [NavigationActions.navigate({ routeName: 'Main'})]

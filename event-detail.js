@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Alert, Dimensions, ScrollView } from 'react-native';
-import { FormLabel, FormInput, Button, FormValidationMessage } from 'react-native-elements';
+import { FormLabel, FormInput, Button, FormValidationMessage, Tooltip, Text } from 'react-native-elements';
 import { MapView, ImagePicker, Permissions, Location } from 'expo';
 import { connect } from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation'
@@ -28,14 +28,20 @@ export default class EventDetailScreen extends Component {
         state = { 
             database: firebase.database(),
             photoAdded: false,  //photo not added button shows add photo
-            name: 'name',  //name of the event
+            name: 'Best Event',  //name of the event
             nameValidation: true, //input validation for name
-            address: null, //address of event
+            address: '199 Collinwood Dr Raeford NC 28376', //address of event
             addressValidation: true, //input validation for address
-            eventDescription: 'event', //event description 
+            eventDescription: 'Food run meet outside...', //event description 
             eventValidation: true, //input validation for event description
             hasCameraPermission: null, // permission for camera usage
             hasLocationPermission: null, //permissions for location usage
+            startDate: this._getTodaysDate(), //input date
+            dateValidation: true,//input date validation
+            startTime: this._parsedDate(new Date()), //input time
+            timeValidation: true,//input time validation
+            creditHours: '1',//input credit hours
+            creditValidation: true,//input credit validation
             image: null,  //image uri path
             region: {  // initial location of MapView and Marker
                 latitude: 37.78825,
@@ -148,6 +154,9 @@ export default class EventDetailScreen extends Component {
             user_id: this.props.auth.uid,  // user_uid
             event_name: this.state.name, //event name
             event_description: this.state.eventDescription, //event description
+            start_date: this.state.startDate, //event start date
+            start_time: this.state.startTime, //even start time
+            credit_hours: this.state.creditHours, //event credits
             address: this.state.address, //event address
             map_region: this.state.region, // event map region
             created_at: (new Date()).getTime(),  //date created
@@ -172,13 +181,41 @@ _updatePostCount(eventName) {
     let posts = this.props.profile.posts || [];
     posts.push(eventName);
     updates['/profiles/' + this.props.auth.uid + '/posts'] = posts;
-    this._getRef().update(updates);
+    this.state.database.ref().update(updates);
 }
 
-//gets reference of firebase db
-_getRef(){
-    return firebase.database().ref();  //in firebase documentation
-  }
+//parse current time in 12:00 AM/PM format
+_parseTime(time) {  //parse time for event
+    let semi = ':';
+    let space = ' ';
+    let nTime = time.split(':')
+    let hour = nTime[0];
+    let min = nTime [1];
+    if ( hour > 12){
+        let tod = 'PM';
+        hour = hour - 12;
+        let parsedTime = hour+semi+min+space+tod;
+        return parsedTime;
+
+    }else{
+        let tod = 'AM';
+        let parsedTime = hour+semi+min+space+tod;
+        return parsedTime;
+
+    }        
+}
+//parse date and returns current time
+_parsedDate(date) {  //parse date for events
+    let ndate = date.toString().split(' ');
+    let time = this._parseTime(ndate[4]);
+    return time.toString();
+}
+//gets todays date
+_getTodaysDate() {
+    var today = new Date();
+    var date =  parseInt(today.getMonth()+1).toString() +'/'+ today.getDate().toString() +'/'+ today.getFullYear().toString().slice(2,4);
+    return date; 
+}
 
 render() {
     
@@ -186,11 +223,13 @@ render() {
         <ScrollView>
         <View>
             
+        
             <FormLabel>Event Name</FormLabel>
             <FormInput
+                ref={(input) => { this.firstTextInput = input; }}
                 textInputRef='eventField'
-                ref='name'
                 onChangeText={(value) => this.setState({ name: value})}
+                value={this.state.name}
                 autoCapitalize='words'
                 autoFocus={true}
                 onSubmitEditing={() => { this.secondTextInput.focus(); }}
@@ -206,20 +245,65 @@ render() {
             ref={(input) => { this.secondTextInput = input; }}
             multiline 
             onChangeText={(text) => this.setState({eventDescription: text})}
-            value={this.state.text}
+            value={this.state.eventDescription}
             onSubmitEditing={() => { this.thirdTextInput.focus(); }}
             />
+            
             <FormValidationMessage>
             {this.state.eventValidation ? null : 'This field is required'}
+            </FormValidationMessage>
+
+            <FormLabel>Start Date</FormLabel>    
+            <FormInput 
+            ref={(input) => { this.thirdTextInput = input; }}
+            multiline
+            maxLength={8} 
+            onChangeText={(text) => this.setState({startDate: text})}
+            value={this.state.startDate}
+            onSubmitEditing={() => { this.fourthTextInput.focus(); }}
+            />
+
+            <FormValidationMessage>
+            {this.state.dateValidation ? null : 'This field is required'}
+            </FormValidationMessage>
+
+            
+            <FormLabel>Start Time</FormLabel>    
+            <FormInput 
+            ref={(input) => { this.fourthTextInput = input; }}
+            multiline 
+            maxLength={8}
+            onChangeText={(text) => this.setState({startTime: text})}
+            value={this.state.startTime}
+            onSubmitEditing={() => { this.fifthTextInput.focus(); }}
+            />
+
+            <FormValidationMessage>
+            {this.state.timeValidation ? null : 'This field is required'}
+            </FormValidationMessage>
+
+            <FormLabel>Volunteer Credit Hours</FormLabel>    
+            <FormInput 
+            ref={(input) => { this.fourthTextInput = input; }}
+            multiline 
+            maxLength={2}
+            onChangeText={(text) => this.setState({creditHours: text})}
+            value={this.state.creditHours}
+            onSubmitEditing={() => { this.fifthTextInput.focus(); }}
+            />
+
+            <FormValidationMessage>
+            {this.state.creditValidation ? null : 'This field is required'}
             </FormValidationMessage>
 
             <FormLabel>Address</FormLabel>
             <FormInput
                 textInputRef='addressField'
-                ref={(input) => { this.thirdTextInput = input; }}
+                ref={(input) => { this.fifthTextInput = input; }}
                 onChangeText={(text) => this.setState({ address: text })}
+                value={this.state.address}
                 autoCapitalize='words'
-                onSubmitEditing={()=> this._updateMapView(this.state.address).then(this.thirdTextInput.focus())}
+                onSubmitEditing={()=> this._updateMapView(this.state.address).then(this.firstTextInput.focus())}
                 returnKeyType='send'
                 />
 
@@ -256,10 +340,14 @@ uploaded a photo*/
 _performPhotoOrPost() {
     if (this.state.photoAdded) {
         //do post if all fields are empty show validation error
-        if(!this.state.name && !this.state.eventDescription && !this.state.address){
+        if(!this.state.name && !this.state.eventDescription && !this.state.address &&
+           !this.state.startDate && !this.state.startTime && !this.state.creditHours){
             this.setState({nameValidation: false})
             this.setState({eventValidation: false})
             this.setState({addressValidation: false})
+            this.setState({dateValidation: false})
+            this.setState({timeValidation: false})
+            this.setState({timeValidation: false})
             return;
         }else if(!this.state.name){
             //if event name is empty show validation error for only name
@@ -272,6 +360,18 @@ _performPhotoOrPost() {
         }else if(!this.state.address){
             //if address is empty show validation error for this only
             this.setState({addressValidation: false})
+            return;
+        }else if (!this.state.startDate){
+            //if date is empty show validation error for this only
+            this.setState({dateValidation: false})
+            return;
+        }else if (!this.state.startTime){
+            //if time is empty show validation error for this only
+            this.setState({timeValidation: false})
+            return;
+        }else if (!this.state.creditHours){
+            //if credithours is empty show validation error for this only
+            this.setState({creditValidation: false})
             return;
         }
         //call async function getCurrentPosition() to get location 
