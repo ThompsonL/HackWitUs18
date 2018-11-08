@@ -141,6 +141,16 @@ export default class TimelineScreen extends Component {
                 )
 
             });
+        }else{
+            return(
+            <View>
+
+            <Text style={{paddingTop: Dimensions.get('window').height*.25, justifyContent: 'center',textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
+                There are no events...
+            </Text>
+
+            </View>
+            )
         }
         return( 
             <ScrollView>

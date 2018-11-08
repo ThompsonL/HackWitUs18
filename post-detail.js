@@ -3,6 +3,7 @@ import { Text, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { firebaseConnect, populate } from 'react-redux-firebase'
 
 const populates = [{ //child of root to query from firebase db
@@ -22,11 +23,13 @@ export default class PostDetailScreen extends Component {
         postUserId: this.props.navigation.state.params.post.user_id,
         postEmail: this.props.navigation.state.params.post.user_id.email,
         postId: [],
+        imageName: this.props.navigation.state.params.post.event_name,
     }
     static navigationOptions = {
         title: 'Event Details'
     };
 
+    //alert user to verify if want to delete event post
     _removeEvent() { //remove event
         Alert.alert(
             'Delete Event',
@@ -40,11 +43,11 @@ export default class PostDetailScreen extends Component {
     }
 
    
-   
+   //get a snapshot and key of the posts that match the one selected
     _getSnapShot() {
             var ref = firebase.database().ref("/posts");
             var query = ref.orderByChild("created_at").equalTo(this.props.navigation.state.params.post.created_at);
-            var self = this; 
+            var self = this; //scope of the variable to be accessed outside of local function .foreach()
             var postId = [];
             query.once("value",function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
@@ -55,18 +58,44 @@ export default class PostDetailScreen extends Component {
         })
     }
 
+    //removes the event post from the firebase db
     _removeEventFromDB(delKey) {
-        // post to firebase db with push
-       
-        //console.log(key)
-        this.props.firebase.remove('/posts/'+ delKey).then((result) => {
+        this.props.firebase.remove('/posts/'+ delKey)
+        //return back to timline screen
+        .then((result) => {
             console.log(result);
         })
+        this._updatePostCount();
+       
     }
 
+    //updates the count of post on firebase db
+_updatePostCount() {
+    this.props.firebase.remove('profiles/'+ this.props.auth.uid +'/posts/'+ Object.keys(this.props.profile.posts).length);
+    this._removeImage();
+}
+
+
+    //remove photo from firebase file storage
+    _removeImage = async () => {
+        const ref = firebase.storage().ref("images/"+ this.props.auth.uid + '/' + this.state.imageName);
+        await ref.delete()
+        .then(() => {
+            this.props.navigation.dispatch(StackActions.reset({
+                index:0,
+                actions: [NavigationActions.navigate({ routeName: 'Timeline'})]
+            }))
+        })
+        .catch((deleteError) => {
+            console.log(deleteError);
+        });
+            }
+
+    //alert user joined event
     _joinEvent() {
         Alert.alert('Join Event')
     }
+
     render() {
         console.log(this.props.auth.uid)
         return(

@@ -89,6 +89,7 @@ export default class EventDetailScreen extends Component {
         
             this._uploadImage(result.uri, this.state.name)
             .then(() => {
+                this.setState({ photoAdded: true});
                 console.log('Upload Success');
             })
             .catch((err) => {
@@ -96,7 +97,6 @@ export default class EventDetailScreen extends Component {
             })
             .then();
             //set the photoAdded bool to change button text
-            this.setState({ photoAdded: true});
         }
     }
 
