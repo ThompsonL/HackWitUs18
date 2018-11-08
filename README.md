@@ -51,7 +51,7 @@ Users can open the events and see the details of the event
 
 6. [ ] Post Event Details need to populate on screen with supplied information.
 
-7. [ ] Event details needs start time field and hours of credit volunteers will receive.
+7. [X] Event details needs start time field and hours of credit volunteers will receive.
 
 ***
 
