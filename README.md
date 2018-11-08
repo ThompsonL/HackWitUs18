@@ -45,11 +45,11 @@ Users can open the events and see the details of the event
 
 3. [X] Upload images to file storage to be access from all users through the firebase db. 05-Nov-18
 
-4. [ ] Delete post, image, db content, and decrease post count.
+4. [X] Delete post, image, db content, and decrease post count. 07-Nov-18
 
 5. [X] Marker on event location.  05-Nov-18 
 
-6. [ ] Post Event Details need to populate on screen with supplied information.
+6. [ ] Post Event Details Screen needs to populate on screen with supplied information.
 
 7. [X] Event details needs start time field and hours of credit volunteers will receive. 06-Nov-18
 
