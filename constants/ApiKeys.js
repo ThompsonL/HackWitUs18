@@ -1,10 +1,10 @@
 export default {
     FirebaseConfig: {
-        apiKey: "AIzaSyD1I6vNEaJLD0y8wFJtplboyKMUjlkhRjE",
+        apiKey: "AIzaSyCjH1lZ5EEc5wsxxocX3kthtAZDkMF2zEw",
         authDomain: "bugleapp-4b94d.firebaseapp.com",
-        databaseURL: "https://bugleapp-4b94d.firebaseio.com",
-        projectId: "bugleapp-4b94d",
-        storageBucket: "gs://bugleapp-4b94d.appspot.com",
+        databaseURL: "https://readsetgo-e24de.firebaseio.com/",
+        projectId: "readsetgo-e24de",
+        storageBucket: "gs://readsetgo-e24de.appspot.com",
         messagingSenderId: ""
     }
 }

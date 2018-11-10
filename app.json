@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "BugleApp",
-    "description": "This project is really great.",
-    "slug": "BugleApp",
+    "name": "ReadySetGo",
+    "description": "This project is for users to create sport challenges.",
+    "slug": "ReadySetGo",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],
@@ -24,11 +24,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "CFBundleDisplayName": "BugleApp",
-      "NSCameraUsageDescription": "Allow BugleApp to use camera during experience",
-      "NSPhotoLibraryUsageDescription": "Allow BugleApp to use photo library during experience",
-      "NSLocationWhenInUseUsageDescription": "Allow BugleApp to use location service during experience",
-      "NSLocationAlwaysUsageDescription": "Allow BugleApp to always use location services",
+      "CFBundleDisplayName": "ReadySetGo",
+      "NSCameraUsageDescription": "Allow ReadySetGo to use camera during experience",
+      "NSPhotoLibraryUsageDescription": "Allow ReadySetGo to use photo library during experience",
+      "NSLocationWhenInUseUsageDescription": "Allow ReadySetGo to use location service during experience",
+      "NSLocationAlwaysUsageDescription": "Allow ReadySetGo to always use location services",
     }
   }
 }

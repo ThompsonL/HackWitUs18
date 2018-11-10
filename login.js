@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, AsyncStorage, Text, View, Alert } from 'react-native';
+import { ActivityIndicator, AsyncStorage, Text, View, Alert, StyleSheet } from 'react-native';
 import * as firebase from 'firebase';
 import { StackActions, NavigationActions } from 'react-navigation'
 import { Button, FormLabel, FormInput } from 'react-native-elements';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+
+const styles = StyleSheet.create({
+    loginTitle: {
+        marginTop: 45, 
+        textAlign: 'center', 
+        fontSize: 32, 
+        fontWeight: 'bold',
+        color: 'blue',
+    },
+    loginAuth: {
+        marginTop: 36, 
+        textAlign: 'center', 
+        fontSize: 18, 
+        fontWeight: 'bold',
+    },
+});
 
 export default class LoginScreen extends Component {
     state = {
@@ -40,9 +57,10 @@ render() {
     return (
         
         <View>
-            <Text style={{marginTop: 36, textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
-                Authentication Required
-            </Text>
+
+
+            <Text style={styles.loginTitle}>  ReadySetGo! </Text>
+            <Text style={styles.loginAuth}>Authentication Required</Text>
     
             {nameField}
 
