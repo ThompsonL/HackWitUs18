@@ -1,28 +1,33 @@
-# HackWitUs18
+
+# ReadySetGo App 
+
+Social media workout challenge app that allows users to create their own challeges.  Once the users are in the area it allows them to be able to particpate in the race by tracking them using their hand phone devices GPS location services.  Users will be able to create their own race start location and finish destination.  While the users are conducting the challenge via running, biking, skateboarding, rollerblading etc. they will be able to collect coins along the race.  The person that finishes the race first whens the challlenge and the jackpot.
 
 
-## ReadySetGo App Checklist
+## HackWitUs18
+
+
+### ReadySetGo App Checklist
 
 ***
-
 Darin:
-- [ ] Build GUI
-- [ ] Load Google Maps API
-- [ ] Build Fire-Base
+1. - [ ] Build GUI
+2. - [ ] Load Google Maps API
+3. - [ ] Build Fire-Base
 ***
 Tom:
-- [ ] Develop messenger on R
-- [ ] Tie R with JS
+1. - [ ] Develop messenger on R
+2. - [ ] Tie R with JS
 ***
 Ani:
-- [ ] Develop QR Code
-- [ ] Tie into JS/Firebase
+1. - [ ] Develop QR Code
+2. - [ ] Tie into JS/Firebase
 ***
 Karan:
-- [ ] Build checkpoints
-- [ ] Tie into JS
+1. - [ ] Build checkpoints
+2. - [ ] Tie into JS
 ***
 Joe:
-- [ ] UI
-- [ ] Presentation/Executive Summary
-- [ ] Manage Group/Keep Time
+1. - [ ] UI
+2. - [ ] Presentation/Executive Summary
+3. - [ ] Manage Group/Keep Time
