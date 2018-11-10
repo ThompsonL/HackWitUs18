@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, Alert, StyleSheet, ScrollView } from 'react-native';
-import { Button, Avatar } from 'react-native-elements';
+import { Button, Avatar, Card, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { firebaseConnect, populate } from 'react-redux-firebase'
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Constants } from 'expo';
+import { MapView } from 'expo';
 import * as firebase from 'firebase';
 import md5 from 'blueimp-md5';
 
@@ -67,7 +67,13 @@ export default class PostDetailScreen extends Component {
         imageName: this.props.navigation.state.params.post.event_name,
         following: this.props.navigation.state.params.post.user_id.following,
         posts: this.props.navigation.state.params.post.user_id.posts,
-        Username: this.props.navigation.state.params.post.user_id.username
+        Username: this.props.navigation.state.params.post.user_id.username,
+        image: this.props.navigation.state.params.post.image,
+        eventDescription: this.props.navigation.state.params.post.event_description,
+        creditHours: this.props.navigation.state.params.post.credit_hours,
+        startDate: this.props.navigation.state.params.post.start_date,
+        startTime: this.props.navigation.state.params.post.start_time,
+        region: this.props.navigation.state.params.post.map_region
     }
     static navigationOptions = {
         title: 'Event Details'
@@ -176,13 +182,51 @@ _updatePostCount() {
                     </Text>
                     </Row>
                     
+                    <Card
+                    title={'Volunteer Credits: ' + this.state.creditHours + '\n'
+                            + 'Location'}
+                    //image={{uri: this.state.image}}
+                    //image={require('../images/pic2.jpg')}  //need this later for profile image possibly??? for displaying no photo
+                    >
+
+                    <MapView
+                        style={{ height: 300, width: Card.width, borderRadius: 25 }}
+                        region={this.state.region}
+                        //onRegionChange={this.onRegionChange}
+                    >
+                        <MapView.Marker
+                        title={this.state.imageName}
+                        description={this.state.eventDescription}
+                        coordinate={{latitude: this.state.region.latitude, longitude: this.state.region.longitude}}
+                        />
+                    </MapView>    
                     
+                    <Text style={styles.stats}>
+                        {'Description: \n' + this.state.eventDescription + '\n' +
+                        'Start Date: ' + this.state.startDate +
+                        'Start Time: ' + this.state.startTime
+                        }
+                    </Text>
+
+                    <Button
+                        icon={<Icon name='code' color='#ffffff' />}
+                        backgroundColor='#03A9F4'
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title={this.state.postEmail != this.props.profile.email ? "Join" : "Delete"}
+                        onPress={this.state.postEmail != this.props.profile.email ? () => this._joinEvent() : () => this._removeEvent()}
+                        />
+                    </Card>
+                    
+
+                    {/*
                     <Button
                     onPress={this.state.postEmail != this.props.profile.email ? () => this._joinEvent() : () => this._removeEvent()}
                     backgroundColor={this.state.postEmail != this.props.profile.email ? color='green' : color="red"}
                     style={{marginTop: 8}}
                     title={this.state.postEmail != this.props.profile.email ? "Join" : "Delete"} 
-                    />               
+                    />  
+                    
+                    */}             
                 
             </View>
             </ScrollView>
