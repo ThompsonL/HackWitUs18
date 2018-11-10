@@ -4,6 +4,7 @@
 
 Social media workout challenge app that allows users to create their own challeges.  Once the users are in the area it allows them to be able to particpate in the race by tracking them using their hand phone devices GPS location services.  Users will be able to create their own race start location and finish destination.  While the users are conducting the challenge via running, biking, skateboarding, rollerblading etc. they will be able to collect coins along the race.  The person that finishes the race first whens the challlenge and the jackpot.
 
+Created on react-native which will allow users to run on both **Android** & **iOS** devices.
 
 ### ReadySetGo App Checklist
 
