@@ -15,7 +15,7 @@ Darin:
 3. - [ ] Build Fire-Base
 ***
 Tom:
-1. - [ ] Develop messenger on R
+1. - [X] Develop messenger on R
 2. - [ ] Tie R with JS
 ***
 Ani:
