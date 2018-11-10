@@ -48,7 +48,27 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         fontSize: 24,
         fontStyle: 'italic'
-    }
+    },
+    desTitle:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 24
+    },
+    desContainer:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        height: 48,
+    },
+    startDetails:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        height:24,
+    },
 });
 
 @firebaseConnect()
@@ -171,7 +191,7 @@ _updatePostCount() {
                     <Text style={{fontSize: 18, marginBottom: 15}}>{name}</Text>
                     </Col>
                     <Col>    
-                        <Row style={styles.statsContainer}><Text style={styles.stats}>  Joined </Text></Row>
+                        <Row style={styles.desContainer}><Text style={styles.stats}>  Joined </Text></Row>
                         <Row style={styles.statsContainer}><Text style={styles.stats}> {follow} Following </Text></Row>
                         <Row style={styles.statsContainer}><Text style={styles.stats}> {posts} Posts</Text></Row>
                     </Col>
@@ -200,13 +220,13 @@ _updatePostCount() {
                         coordinate={{latitude: this.state.region.latitude, longitude: this.state.region.longitude}}
                         />
                     </MapView>    
-                    
-                    <Text style={styles.stats}>
-                        {'Description: \n' + this.state.eventDescription + '\n' +
-                        'Start Date: ' + this.state.startDate +
-                        'Start Time: ' + this.state.startTime
-                        }
-                    </Text>
+
+                    <Col>    
+                        <Row style={styles.desTitle}><Text style={styles.stats}> Description: </Text></Row>
+                        <Row style={styles.desContainer}><Text style={styles.stats}> {this.state.eventDescription} </Text></Row>
+                        <Row style={styles.startDetails}><Text style={styles.stats}> Start Date: {this.state.startDate} </Text></Row>
+                        <Row style={styles.startDetails}><Text style={styles.stats}> Start Time: {this.state.startTime}</Text></Row>
+                    </Col>
 
                     <Button
                         icon={<Icon name='code' color='#ffffff' />}
@@ -219,6 +239,12 @@ _updatePostCount() {
                     
 
                     {/*
+                    <Text style={styles.detailContainer}>
+                        {'Description: \n' + this.state.eventDescription +
+                        'Start Date: ' + this.state.startDate +
+                        'Start Time: ' + this.state.startTime
+                        }
+                    </Text>
                     <Button
                     onPress={this.state.postEmail != this.props.profile.email ? () => this._joinEvent() : () => this._removeEvent()}
                     backgroundColor={this.state.postEmail != this.props.profile.email ? color='green' : color="red"}
