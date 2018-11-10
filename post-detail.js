@@ -1,14 +1,55 @@
 import React, { Component } from 'react';
-import { Text, View, Alert } from 'react-native';
-import { Button } from 'react-native-elements';
-import * as firebase from 'firebase';
+import { Text, View, Alert, StyleSheet, ScrollView } from 'react-native';
+import { Button, Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { firebaseConnect, populate } from 'react-redux-firebase'
+import { Col, Grid, Row } from 'react-native-easy-grid';
+import { Constants } from 'expo';
+import * as firebase from 'firebase';
+import md5 from 'blueimp-md5';
 
 const populates = [{ //child of root to query from firebase db
     child: 'user_id', root: 'profiles'   
 }]
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        //alignItems: 'center',  makes 'delete' button small
+        justifyContent: 'center',
+        //paddingTop: Constants.statusBarHeight,
+        backgroundColor: '#ecf0f1',
+      },
+    statsContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFF',
+        height: 50,
+    },
+    stats: {
+        fontWeight: '700'
+    },
+    avatarContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'orange'
+    },
+    detailContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        height: 50,
+    },
+    detailText:{
+        fontWeight: '300',
+        fontSize: 24,
+        fontStyle: 'italic'
+    }
+});
 
 @firebaseConnect()
 @connect(  
@@ -24,6 +65,9 @@ export default class PostDetailScreen extends Component {
         postEmail: this.props.navigation.state.params.post.user_id.email,
         postId: [],
         imageName: this.props.navigation.state.params.post.event_name,
+        following: this.props.navigation.state.params.post.user_id.following,
+        posts: this.props.navigation.state.params.post.user_id.posts,
+        Username: this.props.navigation.state.params.post.user_id.username
     }
     static navigationOptions = {
         title: 'Event Details'
@@ -69,7 +113,7 @@ export default class PostDetailScreen extends Component {
        
     }
 
-    //updates the count of post on firebase db
+    //decrease the count of post on firebase db
 _updatePostCount() {
     this.props.firebase.remove('profiles/'+ this.props.auth.uid +'/posts/'+ Object.keys(this.props.profile.posts).length);
     this._removeImage();
@@ -96,21 +140,54 @@ _updatePostCount() {
         Alert.alert('Join Event')
     }
 
+    _gravatarURL(post) {
+        return 'https://gravatar.com/avatar/' + md5(post) + '?s=400';
+    }
+
     render() {
         console.log(this.props.auth.uid)
+        let name = this.state.Username ? this.state.Username : 'Anonymous';
+        let follow = this.state.following && this.state.following ? Object.keys(this.state.following).length : 0;
+        let posts = this.state.posts ? Object.keys(this.state.posts).length : 0;
         return(
-            <View>
-                <Text>
-                Details' for {this.props.navigation.state.params.post.event_name}
-                </Text>
-                <Button
-                onPress={this.state.postEmail != this.props.profile.email ? () => this._joinEvent() : () => this._removeEvent()}
-                backgroundColor={this.state.postEmail != this.props.profile.email ? color='green' : color="red"}
-                style={{marginTop: 8}}
-                title={this.state.postEmail != this.props.profile.email ? "Join" : "Delete"} 
-                />               
-
+            <ScrollView>
+            <View style={styles.container}>
+                
+          
+                    <Row>
+                    <Col style={styles.avatarContainer}>
+                    <Avatar
+                    large
+                    rounded
+                    source={{uri: this._gravatarURL(this.state.postEmail)}}
+                    containerStyle={{marginTop:35, width: 75, height: 75, marginVertical: 10}}
+                    />
+                    <Text style={{fontSize: 18, marginBottom: 15}}>{name}</Text>
+                    </Col>
+                    <Col>    
+                        <Row style={styles.statsContainer}><Text style={styles.stats}>  Joined </Text></Row>
+                        <Row style={styles.statsContainer}><Text style={styles.stats}> {follow} Following </Text></Row>
+                        <Row style={styles.statsContainer}><Text style={styles.stats}> {posts} Posts</Text></Row>
+                    </Col>
+                    </Row>
+                    <Row style={styles.detailContainer}>
+                    <Text style={styles.detailText}>
+                    Details' for {this.props.navigation.state.params.post.event_name}
+                    </Text>
+                    </Row>
+                    
+                    
+                    <Button
+                    onPress={this.state.postEmail != this.props.profile.email ? () => this._joinEvent() : () => this._removeEvent()}
+                    backgroundColor={this.state.postEmail != this.props.profile.email ? color='green' : color="red"}
+                    style={{marginTop: 8}}
+                    title={this.state.postEmail != this.props.profile.email ? "Join" : "Delete"} 
+                    />               
+                
             </View>
+            </ScrollView>
         );
     }
+
+
 }
