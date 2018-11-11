@@ -7,12 +7,14 @@ import {
     View, 
     TouchableHighlight, 
     Dimensions,
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 import { Avatar, Icon, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { firebaseConnect, populate } from 'react-redux-firebase';
 import md5 from 'blueimp-md5';
+import { Font } from 'expo';
 
 const populates = [{
      child: 'user_id', root: 'profiles'
@@ -30,14 +32,23 @@ const populates = [{
     })
   )
 export default class TimelineScreen extends Component {
+   state = {
+       fontLoaded: false,
+   }
    
-
     static navigationOptions = ({ navigation }) => ({
-        title: 'Recent Events',
-        headerRight: <Button title="Add Event" onPress={() => navigation.navigate('EventDetails')}/>
+        title: 'Recent Challenges',
+        headerRight: <Image style={{marginRight: 10, height: 50, width: 50}} source={require('./assets/addbtnmedium.png')} title="Add Event" onPress={() => navigation.navigate('EventDetails')}/>
     });
 
+    async componentDidMount() {
+        await Font.loadAsync({
+          'Bauhaus93': require('./assets/fonts/Bauhaus-93_6274.ttf'),
+        });
     
+        this.setState({ fontLoaded: true });
+      }
+
     _gravatarURL(post) {
         let email = post.user_id.email;
         return 'https://gravatar.com/avatar/' + md5(email) + '?s=400';
@@ -144,17 +155,38 @@ export default class TimelineScreen extends Component {
         }else{
             return(
             <View>
-
-            <Text style={{paddingTop: Dimensions.get('window').height*.25, justifyContent: 'center',textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
-                There are no events...
+            <ImageBackground
+                style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}
+                source={require('./assets/eventbkmed.png')}
+                >
+                <Image style={{marginLeft: Dimensions.get('window').width * .80, marginTop: 35, height: 50, width: 50}} source={require('./assets/addbtnmedium.png')} title="Add Event" onPress={() => navigation.navigate('EventDetails')}>
+                </Image>
+                {
+                    this.state.fontLoaded ? (
+                    <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
+                     <Text style={{paddingTop: Dimensions.get('window').height*.25, justifyContent: 'center',textAlign: 'center', fontFamily: 'Bauhaus93'  , fontSize: 32}}>
+                    There are no events...
             </Text>
+                    </TouchableHighlight>
+                    ) :  <Text style={{paddingTop: Dimensions.get('window').height*.25, justifyContent: 'center',textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
+                    There are no events...
+                </Text>
+                }
+
+           
+            </ImageBackground>
 
             </View>
             )
         }
         return( 
             <ScrollView>
+             <ImageBackground
+                style={{width: Dimensions.get('window').width, height:Dimensions.get('window').height}}
+                source={require('./assets/eventbkmed.png')}
+                >
                 {posts}
+            </ImageBackground>
             </ScrollView>
         );
     }

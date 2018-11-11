@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, AsyncStorage, Text, View, Alert, StyleSheet } from 'react-native';
+import { ActivityIndicator, 
+         AsyncStorage, 
+         Text, 
+         View, 
+         Alert, 
+         StyleSheet, 
+         TouchableHighlight,
+         Dimensions,
+         Image
+        } from 'react-native';
 import * as firebase from 'firebase';
 import { StackActions, NavigationActions } from 'react-navigation'
 import { Button, FormLabel, FormInput } from 'react-native-elements';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import { Font } from 'expo';
+
+
 
 const styles = StyleSheet.create({
     loginTitle: {
-        marginTop: 45, 
+        marginTop: Dimensions.get('window').height * .25, 
         textAlign: 'center', 
-        fontSize: 32, 
+        fontSize: 15, 
         fontWeight: 'bold',
-        color: 'blue',
+        color: 'black',
     },
     loginAuth: {
         marginTop: 36, 
@@ -19,6 +31,10 @@ const styles = StyleSheet.create({
         fontSize: 18, 
         fontWeight: 'bold',
     },
+    viewBackground: {
+        flex: 1,
+        backgroundColor: '#3399cc'
+    }
 });
 
 export default class LoginScreen extends Component {
@@ -26,7 +42,17 @@ export default class LoginScreen extends Component {
         isLoading: false,
         isSignup: false,
         database: firebase.database(),
+        fontLoaded: false,
     };
+
+    async componentDidMount() {
+        await Font.loadAsync({
+          'Bauhaus93': require('./assets/fonts/Bauhaus-93_6274.ttf'),
+        });
+    
+        this.setState({ fontLoaded: true });
+      }
+    
     
 render() {
     //if state is loading show spinner
@@ -42,63 +68,158 @@ render() {
     if (this.state.isSignup) {
         nameField = (
         <View>
-            <FormLabel>Name</FormLabel>
-            <FormInput
-                onChangeText={(value) => this.setState({ name: value })}
-                autoCapitalize='words'
-                autoFocus={true}
-                onSubmitEditing={() => this._focusField('email')}
-                returnKeyType='next'
-            />
+            <TouchableHighlight  style={{alignItems: 'center', justifyContent: 'center'}}>
+
+            {
+                this.state.fontLoaded ? (
+                    <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <FormLabel labelStyle={{fontFamily: 'Bauhaus93', color: 'black', fontSize: 24}}> Name: </FormLabel>
+                    </TouchableHighlight>
+                ) : <FormLabel>Name</FormLabel>
+            }
+
+            </TouchableHighlight>
+
+            <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}} >
+            {
+                this.state.fontLoaded ? (
+
+                    <FormInput
+                        onChangeText={(value) => this.setState({ name: value })}
+                        autoCapitalize='words'
+                        autoFocus={false}
+                        onSubmitEditing={() => this._focusField('email')}
+                        returnKeyType='next'
+                        inputStyle={{color: 'black'}}
+                        containerStyle={{borderRadius: 25, backgroundColor: 'white', width: Dimensions.get('window').width* .75}}
+        
+                    />
+                    ) : <FormInput
+                    onChangeText={(value) => this.setState({ name: value })}
+                    autoCapitalize='words'
+                    autoFocus={false}
+                    onSubmitEditing={() => this._focusField('email')}
+                    returnKeyType='next'
+                />
+
+                    
+            }
+
+            </TouchableHighlight>
         </View>
         );
     }
 
     return (
         
-        <View>
+        <View style={styles.viewBackground}>
 
+            
 
-            <Text style={styles.loginTitle}>  ReadySetGo! </Text>
-            <Text style={styles.loginAuth}>Authentication Required</Text>
+            
+
+            <Text style={styles.loginTitle}>  WELCOME TO! </Text>
+            {
+                this.state.fontLoaded ? (
+                <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{fontFamily: 'Bauhaus93', fontSize: 32 }}>
+                    Ready.Set.Go
+                </Text>
+                </TouchableHighlight>
+                ) : null
+            }
     
             {nameField}
-
-            <FormLabel>Email</FormLabel>
+            
+            {
+                this.state.fontLoaded ? (
+                    <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <FormLabel labelStyle={{fontFamily: 'Bauhaus93', color: 'black', fontSize: 24}}> Email: </FormLabel>
+                    </TouchableHighlight>
+                ) : <FormLabel>Email</FormLabel>
+            }
+            
+            <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
             <FormInput
                 textInputRef='emailField'
                 ref='email'
+                inputStyle={{color: 'black'}}
+                containerStyle={{borderRadius: 25, backgroundColor: 'white', width: Dimensions.get('window').width* .75}}
                 onChangeText={(value) => this.setState({ email: value})}
                 autoCapitalize='none'
-                autoFocus={true}
+                autoFocus={false}
                 onSubmitEditing={() => this._focusField('password')}
                 returnKeyType='next'
                 keyboardType='email-address'
-            />
+                />
+            </TouchableHighlight>
 
-            <FormLabel>Password</FormLabel>
-            <FormInput
+
+             {
+                this.state.fontLoaded ? (
+                    <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <FormLabel labelStyle={{fontFamily: 'Bauhaus93', color: 'black', fontSize: 24}}> Password: </FormLabel>
+                    </TouchableHighlight>
+                ) : <FormLabel>Email</FormLabel>
+            }
+            <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
+            <FormInput 
                 textInputRef='passwordField'
                 ref='password'
                 onChangeText={(value) => this.setState({ password: value})}
                 onSubmitEditing={() => this._performLoginOrSignUp()}
                 returnKeyType='send'
                 secureTextEntry={true}
-            />
+                inputStyle={{color: 'black'}}
+                containerStyle={{borderRadius: 25, backgroundColor: 'white', width: Dimensions.get('window').width* .75}}
+                />
+            </TouchableHighlight>
+            
+            <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}} >
+            {
+                this.state.fontLoaded ? (
 
-            <Button
+                    <Button 
+                        onPress={() => this._performLoginOrSignUp()}
+                        textStyle={{fontFamily: 'Bauhaus93', fontSize: 24}}
+                        title={this.state.isSignup ? "Signup" : "Login"}
+                        style={{marginTop: 25, width: Dimensions.get('window').width* .75}}
+                        backgroundColor='#336699'
+                        
+                    />
+                ) : <Button 
                 onPress={() => this._performLoginOrSignUp()}
                 title={this.state.isSignup ? "Signup" : "Login"}
-                style={{marginTop: 25}}
-                backgroundColor='#212A34'
+                style={{marginTop: 25, width: Dimensions.get('window').width* .75}}
+                backgroundColor='#336699'
+                
             />
+
+            }
+
+            </TouchableHighlight>
             
-            <Button
+            <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
+            {
+                this.state.fontLoaded ? (
+
+                    <Button
+                        onPress={() => this.setState({ isSignup: !this.state.isSignup })}
+                        backgroundColor='#79B345'
+                        style={{marginTop: 15, width: Dimensions.get('window').width*.75}}
+                        textStyle={{fontFamily: 'Bauhaus93', fontSize: 16}}
+                        title={this.state.isSignup ? "Already have an account? Log In." : "Don't have an account? Sign Up."} 
+                    />               
+                ): <Button
                 onPress={() => this.setState({ isSignup: !this.state.isSignup })}
                 backgroundColor='#79B345'
-                style={{marginTop: 8}}
+                style={{marginTop: 15, width: Dimensions.get('window').width*.75}}
                 title={this.state.isSignup ? "Already have an account? Log In." : "Don't have an account? Sign Up."} 
-            />               
+            />        
+            }
+
+            </TouchableHighlight>
+            
 
         </View>
     );

@@ -223,7 +223,6 @@ render() {
         <ScrollView>
         <View>
             
-        
             <FormLabel>Event Name</FormLabel>
             <FormInput
                 ref={(input) => { this.firstTextInput = input; }}
@@ -330,7 +329,7 @@ render() {
                 backgroundColor='#79B345'
                 />                       
 
-
+    
         </View>
         </ScrollView>
     );
