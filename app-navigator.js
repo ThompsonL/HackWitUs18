@@ -19,7 +19,7 @@ const TimelineNavigator = createStackNavigator({
   Timeline: { screen: TimelineScreen },
   Post: { path: 'posts/:post_id', screen: PostDetailScreen },
   EventDetails: { screen: EventDetailScreen, mode: "modal"}
-}, { headerMode: 'none'});
+});
 TimelineNavigator.navigationOptions = {
   title: 'Timeline',
   tabBarIcon: ({ tintColor }) => <Icon color={tintColor} name="image" />

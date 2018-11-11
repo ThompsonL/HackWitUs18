@@ -38,7 +38,9 @@ export default class TimelineScreen extends Component {
    
     static navigationOptions = ({ navigation }) => ({
         title: 'Recent Challenges',
-        headerRight: <Image style={{marginRight: 10, height: 50, width: 50}} source={require('./assets/addbtnmedium.png')} title="Add Event" onPress={() => navigation.navigate('EventDetails')}/>
+        headerRight: <TouchableHighlight onPress={() => navigation.navigate('EventDetails')}>
+            <Image style={{marginRight: 10, marginTop: 100, height: 50, width: 50}} source={require('./assets/addbtnmedium.png')} title="Add Event" />
+            </TouchableHighlight>
     });
 
     async componentDidMount() {
@@ -159,17 +161,16 @@ export default class TimelineScreen extends Component {
                 style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}
                 source={require('./assets/eventbkmed.png')}
                 >
-                <Image style={{marginLeft: Dimensions.get('window').width * .80, marginTop: 35, height: 50, width: 50}} source={require('./assets/addbtnmedium.png')} title="Add Event" onPress={() => navigation.navigate('EventDetails')}>
-                </Image>
+
                 {
                     this.state.fontLoaded ? (
                     <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
                      <Text style={{paddingTop: Dimensions.get('window').height*.25, justifyContent: 'center',textAlign: 'center', fontFamily: 'Bauhaus93'  , fontSize: 32}}>
-                    There are no events...
+                    There are no Challenges
             </Text>
                     </TouchableHighlight>
                     ) :  <Text style={{paddingTop: Dimensions.get('window').height*.25, justifyContent: 'center',textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
-                    There are no events...
+                    There are no Challenges
                 </Text>
                 }
 
@@ -182,7 +183,7 @@ export default class TimelineScreen extends Component {
         return( 
             <ScrollView>
              <ImageBackground
-                style={{width: Dimensions.get('window').width, height:Dimensions.get('window').height}}
+                style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}
                 source={require('./assets/eventbkmed.png')}
                 >
                 {posts}
