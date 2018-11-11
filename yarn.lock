@@ -4560,6 +4560,15 @@ react-native-branch@2.2.5:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
 
+react-native-countdown-component@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/react-native-countdown-component/-/react-native-countdown-component-1.8.2.tgz#ab8d72da83738a14edca82d16f609f4a65754814"
+  integrity sha512-v/4YNNh1SmfOqzfEowfB6KD6l0ToVkoWK/BnRM7+F2u+d/MX6AocdaB88QprQQ+i6YrELDrMmdEpDuKtocYHkg==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.5.8"
+    sprintf-js "^1.1.1"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
@@ -5317,6 +5326,11 @@ split-string@^3.0.1, split-string@^3.0.2:
   integrity sha512-NzNVhJDYpwceVVii8/Hu6DKfD2G+NrQHlS/V/qgv763EYudVwEcMQNxd2lh+0VrUByXN/oJkl5grOhYWvQUYiw==
   dependencies:
     extend-shallow "^3.0.0"
+
+sprintf-js@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.1.tgz#36be78320afe5801f6cea3ee78b6e5aab940ea0c"
+  integrity sha1-Nr54Mgr+WAH2zqPueLblqrlA6gw=
 
 stacktrace-parser@^0.1.3:
   version "0.1.4"

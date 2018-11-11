@@ -6,6 +6,8 @@ import AppWithNavigationState from './app-navigator';
 
 const store = createStore();
 
+console.disableYellowBox = true;
+
 class Root extends Component {
 
   render() {

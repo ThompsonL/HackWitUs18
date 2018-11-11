@@ -78,6 +78,7 @@ export default class EventDetailScreen extends Component {
 					e.nativeEvent.coordinate,
 				],
             });
+            this._updatePoint2();
 		} else {
 			this.setState({
 				coordinates: [
@@ -85,7 +86,7 @@ export default class EventDetailScreen extends Component {
 					e.nativeEvent.coordinate,
 				],
             });
-           // this._updatePoint1();
+           this._updatePoint1();
 		}
 	}
 
@@ -119,7 +120,7 @@ export default class EventDetailScreen extends Component {
             let c = ', ';
             let postal2 = await Location.reverseGeocodeAsync({
                 latitude: this.state.coordinates[1].latitude, longitude: this.state.coordinates[1].longitude})
-                this.state.startFinish = postal2[0].street + c + 
+                this.state.finishLocation = postal2[0].street + c + 
                                          postal2[0].city + c + 
                                          postal2[0].region + c + 
                                          postal2[0].postalCode
@@ -353,7 +354,7 @@ render() {
                 onChangeText={(text) => this.setState({ startLocation: text })}
                 value={this.state.startLocation}
                 autoCapitalize='words'
-                onSubmitEditing={()=> this._updateMapView(this.state.startLocation).then(this.firstTextInput.focus())}
+//                onSubmitEditing={()=> this._updateMapView(this.state.startLocation).then(this.firstTextInput.focus())}
                 returnKeyType='send'
                 />
             </TouchableHighlight>
@@ -379,7 +380,7 @@ render() {
                 onChangeText={(text) => this.setState({ finishLocation: text })}
                 value={this.state.finishLocation}
                 autoCapitalize='words'
-                onSubmitEditing={()=> this._updateMapView(this.state.finishLocation).then(this.firstTextInput.focus())}
+  //              onSubmitEditing={()=> this._updateMapView(this.state.finishLocation).then(this.firstTextInput.focus())}
                 returnKeyType='send'
                 />
             </TouchableHighlight>
