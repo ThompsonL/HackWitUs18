@@ -15,12 +15,14 @@ Darin:
 3. - [X] Build Fire-Base
 ***
 Tom:
-1. - [X] Develop messenger on R
+1. - [X] Develop messenger on R (Incompatible)
 2. - [ ] Tie R with JS
+3. - [ ] Proof-Read slide show
+4. - [X] Create visualization for presentation
 ***
 Ani:
-1. - [ ] Develop QR Code
-2. - [ ] Tie into JS/Firebase
+1. - [X] Develop QR Code
+2. - [X] Tie into JS/Firebase
 ***
 Karan:
 1. - [X] Build checkpoints
