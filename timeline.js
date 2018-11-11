@@ -39,6 +39,10 @@ export default class TimelineScreen extends Component {
    }
    
     static navigationOptions = ({ navigation }) => ({
+        headerTintColor: 'orange',
+        headerStyle: {
+        backgroundColor: '#3399cc'
+        },
         title: 'Recent Challenges',
         headerRight: <TouchableHighlight onPress={() => navigation.navigate('EventDetails')}>
             <Image style={{marginRight: 10, marginTop: 100, height: 50, width: 50}} source={require('./assets/addbtnmedium.png')} title="Add Event" />

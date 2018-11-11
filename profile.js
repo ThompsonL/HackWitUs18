@@ -24,8 +24,17 @@ const styles = StyleSheet.create({
   @firebaseConnect()
 class ProfileScreen extends Component{
     static navigationOptions = ({ navigation }) => ({
+        headerTintColor: 'orange',
+        headerStyle: {
+        backgroundColor: '#3399cc'
+        },
         title: 'Profile',
-        headerRight: <Button title="Add Contacts" onPress={() => navigation.navigate('AddContacts')} />
+        headerRight: 
+        <Button 
+        title="Add Contacts"
+        color='orange'
+        onPress={() => navigation.navigate('AddContacts')} 
+        />
     });
  gravatarURL() {
      let email = this.props.auth.email;

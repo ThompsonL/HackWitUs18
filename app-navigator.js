@@ -22,7 +22,7 @@ const TimelineNavigator = createStackNavigator({
 });
 TimelineNavigator.navigationOptions = {
   title: 'Timeline',
-  tabBarIcon: ({ tintColor }) => <Icon color={tintColor} name="image" />
+  tabBarIcon: () => <Icon color='black' name="image" />
 };
 
 const ProfileNavigator = createStackNavigator({
@@ -31,12 +31,22 @@ const ProfileNavigator = createStackNavigator({
 }, {mode: "modal"});
 ProfileNavigator.navigationOptions = {
   title: 'Profile',
-  tabBarIcon: ({ tintColor }) => <Icon color={tintColor} name="account-box" />
+  tabBarIcon: () => <Icon color='black' name="account-box" />
 };
 
 const MainNavigator = createBottomTabNavigator({
   Home: { screen: TimelineNavigator },
   Profile: { screen: ProfileNavigator }
+},{
+  tabBarOptions: {
+    activeTintColor: 'orange',
+    labelStyle: {
+      fontSize: 12,
+    },
+    style: {
+      backgroundColor: '#3399cc',
+    },
+  }
 });
 
 @firebaseConnect()
