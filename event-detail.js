@@ -78,7 +78,6 @@ export default class EventDetailScreen extends Component {
 					e.nativeEvent.coordinate,
 				],
             });
-            this._updatePoint2();
 		} else {
 			this.setState({
 				coordinates: [
@@ -86,7 +85,7 @@ export default class EventDetailScreen extends Component {
 					e.nativeEvent.coordinate,
 				],
             });
-            this._updatePoint1();
+           // this._updatePoint1();
 		}
 	}
 
@@ -116,11 +115,11 @@ export default class EventDetailScreen extends Component {
             console.log(JSON.stringify(postal))
         }
         
-        async _updatePoint2(){
+    async _updatePoint2(){
             let c = ', ';
             let postal2 = await Location.reverseGeocodeAsync({
                 latitude: this.state.coordinates[1].latitude, longitude: this.state.coordinates[1].longitude})
-                this.state.finishLocation = postal2[0].street + c + 
+                this.state.startFinish = postal2[0].street + c + 
                                          postal2[0].city + c + 
                                          postal2[0].region + c + 
                                          postal2[0].postalCode
@@ -180,10 +179,10 @@ export default class EventDetailScreen extends Component {
      //lastly get's location and posts to firebase db.
     _getLocationAsync = async () => {        
         //retrieves user's location
-        let location = await Location.getCurrentPositionAsync({});  
+        //let location = await Location.getCurrentPositionAsync({});  
         //gets postal location of lat/long and retrieves user's postal address
-        let postal = await Location.reverseGeocodeAsync({
-            latitude: location.coords.latitude, longitude: location.coords.longitude}) 
+        //let postal = await Location.reverseGeocodeAsync({
+         //   latitude: location.coords.latitude, longitude: location.coords.longitude}) 
         //console.log("postal: " + JSON.stringify(postal)) 
         // post to firebase db with push
         this.props.firebase.push('/posts', { 
@@ -191,10 +190,12 @@ export default class EventDetailScreen extends Component {
             event_name: this.state.name, //event name
             start_date: this.state.startDate, //event start date
             start_time: this.state.startTime, //even start time
-            address: this.state.address, //event address
-            map_region: this.state.region, // event map region
+            start_location: this.state.startLocation, //event address
+            finish_location: this.state.finishLocation, // event map region
+            origin: this.state.coordinates[0],//start coordinates
+            destination: this.state.coordinates[1],//destination coordinates
             created_at: (new Date()).getTime(),  //date created
-            location: `${postal[0].city}`+', '+`${postal[0].region}`,  //object city, state
+            //location: `${postal[0].city}`+', '+`${postal[0].region}`,  //object city, state
         })
         //updates the post count
         .then(this._updatePostCount(this.state.name))
@@ -405,7 +406,7 @@ render() {
   				)}
   				{(this.state.coordinates.length === 2) && (
   					<MapViewDirections
-  						origin={this.state.coordinates[0]}
+                        origin={this.state.coordinates[0]}
   						destination={this.state.coordinates[1]}
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={3}
@@ -452,7 +453,7 @@ render() {
 /*Allows user to upload photo for event or Post if user has already
 uploaded a photo*/
 _performPost() {
-    if (this.state.photoAdded) {
+   
         //do post if all fields are empty show validation error
         if(!this.state.name && !this.state.startLocation && !this.state.finishLocation &&
            !this.state.startDate && !this.state.startTime){
@@ -467,7 +468,7 @@ _performPost() {
             //if event name is empty show validation error for only name
             this.setState({nameValidation: false})
             return;
-        }else if(!this.state.address){
+        }else if(!this.state.startLocation){
             //if address is empty show validation error for this only
             this.setState({startValidation: false})
             return;
@@ -477,7 +478,7 @@ _performPost() {
             return;
         }else if (!this.state.startTime){
             //if time is empty show validation error for this only
-            this.setState({timeValidation: false})
+            this.setState({startValidation: false})
             return;
         }else if (!this.state.finishLocation){
             //if time is empty show validation error for this only
@@ -489,7 +490,7 @@ _performPost() {
         
     }
     
-}
+
 
 
 

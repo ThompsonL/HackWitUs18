@@ -14,7 +14,7 @@ import { Avatar, Icon, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { firebaseConnect, populate } from 'react-redux-firebase';
 import md5 from 'blueimp-md5';
-import { Font } from 'expo';
+import { Font, MapView } from 'expo';
 
 const populates = [{
      child: 'user_id', root: 'profiles'
@@ -101,43 +101,77 @@ export default class TimelineScreen extends Component {
                 return (
                     <View 
                     key={i} 
-                    style={{padding: 10, marginBottom: 25, backgroundColor: '#FFF'}}
+                    style={{marginTop: 100}}
                     >
-                        
-                        
                         {/* post_id parameters to send to post-details */}
+
+                             {
+                            this.state.fontLoaded ? (
+                            <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}
+                            
+                            >
+                            <Text style={{fontFamily: 'Bauhaus93', fontSize: 24 }}>
+                                WELCOME BACK {this.props.profile.username}
+                            </Text>
+                            </TouchableHighlight>
+                            ) : null
+                            }
+
+                            {
+                            this.state.fontLoaded ? (
+                            <TouchableHighlight style={{marginTop: 5,alignItems: 'center', justifyContent: 'center'}}
+                            
+                            >
+                            <Text style={{fontFamily: 'Bauhaus93', fontSize: 30 }}>
+                                Today's Top Challenges
+                            </Text>
+                            </TouchableHighlight>
+                            ) : null
+                            }
+
                             <ImageBackground 
-                                source={{uri: post.image, isStatic: true}}
-                                style={{height: 250, borderRadius: 25}} 
+                                source={require('./assets/eventbkgMedium.png')}
+                                style={{height: 100, borderRadius: 25}} 
                                 imageStyle={{ borderRadius: 25 }}
                                 >
-                            <Avatar
-                            medium
-                            rounded
-                            source={{uri: this._gravatarURL(post)}}
-                            containerStyle={{width: 25, 
-                                             height: 25, 
-                                             position: "absolute", 
-                                             marginTop:5, 
-                                             marginLeft: Dimensions.get('window').width-50}}
-                            />                        
+                            {
+                            this.state.fontLoaded ? (
+                            <TouchableHighlight style={{marginTop: 5,alignItems: 'left', justifyContent: 'left'}}
+                            
+                            >
+                            <Text style={{fontFamily: 'Bauhaus93', fontSize: 20 }}>
+                                {post.event_name.toString().trim()}
+                            </Text>
+                            
+                            
+                            
+                            </TouchableHighlight>
+                            ) : null
+                            }
+
+                            <ImageBackground
+                            source={require('./assets/minimapMed.png')}
+                            style={{marginTop: 0, marginLeft: Dimensions.get('window').width * .50, height: 75, width: 150}} 
+                            >
+                            {
+                            this.state.fontLoaded ? (
+                            <TouchableHighlight style={{marginTop: 25,alignItems: 'center', justifyContent: 'center'}}
+                            
+                            >
+                            <Text style={{fontFamily: 'Bauhaus93', fontSize: 24 }}>
+                                View Map
+                            </Text>
+                            </TouchableHighlight>
+                            ) : null
+                            }
+                            
+
+                            </ImageBackground>
+
+
                             </ImageBackground>
                 
-                        <List>
-                            {
-                                <ListItem
-                                roundAvatar
-                                avatar={{uri: this._gravatarURL(post)}}
-                                title={post.event_name}
-                                subtitle={'By: ' + post.user_id.username}
-                                rightIcon={{name: 'chevron-right', color: 'orange'}}
-                                rightTitle='view more details'
-                                rightTitleStyle={{color: 'orange'}}
-                                onPress={() => this.props.navigation.navigate('Post', {post})}
-                                >
-                                </ListItem>
-                            }
-                        </List>
+                        
                         
                         {/*
                         <Text style={{textAlign: 'center', fontStyle: 'italic', fontSize: 32}}>
@@ -181,14 +215,18 @@ export default class TimelineScreen extends Component {
             )
         }
         return( 
-            <ScrollView>
-             <ImageBackground
+            <View>
+                 <ImageBackground
                 style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}
                 source={require('./assets/eventbkmed.png')}
                 >
+            <ScrollView>
+            
                 {posts}
-            </ImageBackground>
             </ScrollView>
+            </ImageBackground>
+
+            </View>
         );
     }
 
