@@ -62,5 +62,4 @@ Joe:
 3. - [X] Manage Group/Keep Time
 
 
-## Contributors:
-
+<img width="724" alt="pitch - 2018-11-11 09-39-04" src="https://user-images.githubusercontent.com/6371329/48314305-b4bd6900-e595-11e8-9d9a-e66d5d2d1b21.png">
