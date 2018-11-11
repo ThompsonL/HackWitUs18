@@ -10,9 +10,9 @@ Created on **React-Native & Firebase** (back-end) which will allow users to run 
 
 ***
 Darin:
-1. - [ ] Build GUI
+1. - [X] Build GUI
 2. - [ ] Load Google Maps API
-3. - [ ] Build Fire-Base
+3. - [X] Build Fire-Base
 ***
 Tom:
 1. - [X] Develop messenger on R
@@ -23,10 +23,10 @@ Ani:
 2. - [ ] Tie into JS/Firebase
 ***
 Karan:
-1. - [ ] Build checkpoints
-2. - [ ] Tie into JS
+1. - [X] Build checkpoints
+2. - [X] Tie into JS
 ***
 Joe:
-1. - [ ] UI
-2. - [ ] Presentation/Executive Summary
-3. - [ ] Manage Group/Keep Time
+1. - [X] UI
+2. - [X] Presentation/Executive Summary
+3. - [X] Manage Group/Keep Time
