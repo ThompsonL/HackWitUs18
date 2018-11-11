@@ -11,7 +11,7 @@ Created on **React-Native & Firebase** (back-end) which will allow users to run 
 ***
 Darin:
 1. - [X] Build GUI
-2. - [ ] Load Google Maps API
+2. - [X] Load Google Maps API
 3. - [X] Build Fire-Base
 ***
 Tom:
