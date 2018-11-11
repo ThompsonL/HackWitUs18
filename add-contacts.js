@@ -16,8 +16,16 @@ class AddContactsScreen extends Component {
     };
 
     static navigationOptions = ({ navigation }) => ({
+        headerTintColor: 'orange',
+        headerStyle: {
+        backgroundColor: '#3399cc'
+        },
         title: 'Add Contacts',
-        headerLeft: <Button title="Done" onPress={() => navigation.goBack() } />
+        headerLeft: 
+        <Button 
+        title="Done" 
+        color='orange'
+        onPress={() => navigation.goBack() } />
     });
 
     componentDidMount() {
