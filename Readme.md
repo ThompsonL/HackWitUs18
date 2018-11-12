@@ -63,6 +63,50 @@ Joe:
 
 ***
 
+# How to setup and run on your PC/MAC using: 
+## VScode, terminal/cmd prompt, emulator iOS/Android with Xcode/android studios.
+
+1. Open android studios and create an emulator using these settings:
+>    device: Pixel_XL
+>    system image: Oreo API 27 x86_64 Android 8.1
+>    avd name: Pixel XL API 27
+After you finish setting up the emulator run the android emulator.  At this point you can close android studios, but leave the emulator running.
+
+2. Open up command prompt and make sure that you ‘cd’ to your desktop.  ususally C:\Users\“your computer name”\Desktop
+
+3. then type:
+>    git clone https://github.com/ThompsonL/HackWitUs18
+
+4. then cd to HackWitUs18.
+
+5. then type:
+>   npm install
+
+6. this will install the node modules that HackWitUs18 will need to run the application.
+
+7. Once the installation is complete type
+>    expo start
+8. If you don’t have expo then install it by:
+>    npm -i -g expo-cli --save
+
+9. After you have ran ‘expo start’ your web browser should open with the QR code on the bottom left corner.
+
+10.  Click on Run on Android device/emulator
+
+11.  Asks please enable permit drawing over other apps ‘Say Yes’
+
+12.  Click to turn on ‘Allow display over other apps’ switch
+
+13.  Ready.Set.Go application should display on the android emulator.
+
+14.  Now open VScode and open the HackWitUs18 folder
+
+15.  Open Login.js and you can edit the code that says ‘Ready.Set.Go’  and change it to ‘Your-Name’  and press Ctrl-S/CMD-S and the Android emulator will update displaying your changes.
+
+16.  Cheers :beers:
+
+***
+
 ## Contributors:
 
 <img width="724" alt="pitch - 2018-11-11 09-39-04" src="https://user-images.githubusercontent.com/6371329/48314305-b4bd6900-e595-11e8-9d9a-e66d5d2d1b21.png">
