@@ -87,15 +87,7 @@ export default class PostDetailScreen extends Component {
 
 	render() {
 	  
-	  if (Platform.OS === 'android') {
-      return (
-	      <View style={styles.container}>
-	        <Text>
-	          {"For some reason Android crashes here on Expo, so you'll have to test this with iOS … Sorry"}
-	        </Text>
-	      </View>
-      );
-	  }
+	 
 	  
 		return (
 		  <View style={styles.container}>

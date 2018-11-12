@@ -23,7 +23,7 @@ const populates = [{
 }]
 
 @firebaseConnect([
-    { path: '/posts', queryParams: ['orderByChild=created_at', 'limitToLast=5'], populates}
+    { path: '/posts', queryParams: ['orderByChild=created_at', 'limitToLast=20'], populates}
 ])  
 @connect(
     ({ firebase}) => ({
@@ -260,7 +260,7 @@ export default class TimelineScreen extends Component {
                     </TouchableHighlight>
                     ) : null
                 }
-            <ScrollView>
+            <ScrollView style={{marginBottom: 165}}> 
             
                 {posts}
             </ScrollView>
