@@ -103,7 +103,7 @@ After you finish setting up the emulator run the android emulator.  At this poin
 
 15.  Open Login.js and you can edit the code that says ‘Ready.Set.Go’  and change it to ‘Your-Name’  and press Ctrl-S/CMD-S and the Android emulator will update displaying your changes.
 
-16.  Cheers :beers:
+Cheers :beers:
 
 ***
 
