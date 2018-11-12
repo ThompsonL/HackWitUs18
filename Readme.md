@@ -34,35 +34,6 @@ Created on **React-Native & Firebase** (back-end) which will allow users to run 
 
 ***
 
-### ReadySetGo App Checklist
-
-***
-Darin:
-1. - [X] Build GUI
-2. - [X] Load Google Maps API
-3. - [X] Build Fire-Base
-***
-Tom:
-1. - [X] Develop messenger on R (Incompatible)
-2. - [X] Tie R with JS (Didn't use it)
-3. - [X] Proof-Read slide show
-4. - [X] Create visualization for presentation
-***
-Ani:
-1. - [X] Develop QR Code
-2. - [X] Tie into JS/Firebase
-***
-Karan:
-1. - [X] Build checkpoints
-2. - [X] Tie into JS
-***
-Joe:
-1. - [X] UI
-2. - [X] Presentation/Executive Summary
-3. - [X] Manage Group/Keep Time
-
-***
-
 # How to setup and run on your PC/MAC using: 
 ## VScode, terminal/cmd prompt, emulator iOS/Android with Xcode/android studios.
 
@@ -110,3 +81,32 @@ Cheers :beers:
 ## Contributors:
 
 <img width="724" alt="pitch - 2018-11-11 09-39-04" src="https://user-images.githubusercontent.com/6371329/48314305-b4bd6900-e595-11e8-9d9a-e66d5d2d1b21.png">
+
+### ReadySetGo App Checklist
+
+***
+Darin:
+1. - [X] Build GUI
+2. - [X] Load Google Maps API
+3. - [X] Build Fire-Base
+***
+Tom:
+1. - [X] Develop messenger on R (Incompatible)
+2. - [X] Tie R with JS (Didn't use it)
+3. - [X] Proof-Read slide show
+4. - [X] Create visualization for presentation
+***
+Ani:
+1. - [X] Develop QR Code
+2. - [X] Tie into JS/Firebase
+***
+Karan:
+1. - [X] Build checkpoints
+2. - [X] Tie into JS
+***
+Joe:
+1. - [X] UI
+2. - [X] Presentation/Executive Summary
+3. - [X] Manage Group/Keep Time
+
+***
