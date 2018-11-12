@@ -14,6 +14,7 @@ import TimelineScreen from './timeline';
 import PostDetailScreen from './post-detail';
 import ProfileScreen from './profile';
 import EventDetailScreen from './event-detail';
+import MessagesScreen from './messages'
 
 const TimelineNavigator = createStackNavigator({
   Timeline: { screen: TimelineScreen },
@@ -34,9 +35,18 @@ ProfileNavigator.navigationOptions = {
   tabBarIcon: () => <Icon color='black' name="account-box" />
 };
 
+const MessagesNavigator = createStackNavigator({
+  Messages: { screen: MessagesScreen }
+});
+MessagesNavigator.navigationOptions = {
+  title: 'Messages',
+  tabBarIcon: () => <Icon color='black' name="message" />
+};
+
 const MainNavigator = createBottomTabNavigator({
   Home: { screen: TimelineNavigator },
-  Profile: { screen: ProfileNavigator }
+  Messages: { screen: MessagesNavigator },
+  Profile: { screen: ProfileNavigator },
 },{
   tabBarOptions: {
     activeTintColor: 'orange',

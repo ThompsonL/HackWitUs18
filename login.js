@@ -19,7 +19,7 @@ import { Font } from 'expo';
 
 const styles = StyleSheet.create({
     loginTitle: {
-        marginTop: Dimensions.get('window').height * .25, 
+        marginTop: Dimensions.get('window').height * .15, 
         textAlign: 'center', 
         fontSize: 15, 
         fontWeight: 'bold',
@@ -88,7 +88,7 @@ render() {
                         onChangeText={(value) => this.setState({ name: value })}
                         autoCapitalize='words'
                         autoFocus={false}
-                        onSubmitEditing={() => this._focusField('email')}
+                        onSubmitEditing={() => { this.firstTextInput.focus(); }}
                         returnKeyType='next'
                         inputStyle={{color: 'black'}}
                         containerStyle={{borderRadius: 25, backgroundColor: 'white', width: Dimensions.get('window').width* .75}}
@@ -142,13 +142,13 @@ render() {
             <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
             <FormInput
                 textInputRef='emailField'
-                ref='email'
+                ref={(input) => { this.firstTextInput = input; }}
                 inputStyle={{color: 'black'}}
                 containerStyle={{borderRadius: 25, backgroundColor: 'white', width: Dimensions.get('window').width* .75}}
                 onChangeText={(value) => this.setState({ email: value})}
                 autoCapitalize='none'
                 autoFocus={false}
-                onSubmitEditing={() => this._focusField('password')}
+                onSubmitEditing={() => { this.secondTextInput.focus(); }}
                 returnKeyType='next'
                 keyboardType='email-address'
                 />
@@ -165,7 +165,7 @@ render() {
             <TouchableHighlight style={{alignItems: 'center', justifyContent: 'center'}}>
             <FormInput 
                 textInputRef='passwordField'
-                ref='password'
+                ref={(input) => { this.secondTextInput = input; }}
                 onChangeText={(value) => this.setState({ password: value})}
                 onSubmitEditing={() => this._performLoginOrSignUp()}
                 returnKeyType='send'
